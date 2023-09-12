@@ -1,11 +1,11 @@
 {
-  "name": "la_opinion_de_hidalgo",
+  "name": "gi_life",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3007",
+    "dev": "next dev -p 3015",
     "build": "next build",
-    "start": "next start -p 3007",
+    "start": "next start -p 3015",
     "lint": "next lint"
   },
   "dependencies": {

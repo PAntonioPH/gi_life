@@ -7,7 +7,7 @@ import {message} from "@/utils/functions";
 
 const {NEXT_PUBLIC_SECRET, NEXT_PUBLIC_TOKEN_WEB, NEXT_PUBLIC_TOKEN_MOBILE} = process.env
 
-export const middleware = async (req: NextRequest, res: NextResponse) => {
+export const middleware = async (req: NextRequest) => {
   try {
     if (req.url.includes("/api")) {
       if (req.url.includes("/api/ping")) return NextResponse.next();

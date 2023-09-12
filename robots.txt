@@ -1,5 +1,3 @@
 User-agent:*
 Disallow:
-Sitemap:https://laopiniondelaltiplano.com
-
-/
+Sitemap:https://gilife.mx/

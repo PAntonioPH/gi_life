@@ -1,4 +1,4 @@
-import {Box, Flex, HStack, IconButton, SimpleGrid, Image, useBreakpointValue, useDisclosure, Center} from '@chakra-ui/react'
+import {Box, Flex, HStack, IconButton, SimpleGrid, useBreakpointValue, useDisclosure} from '@chakra-ui/react'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faBars} from "@fortawesome/free-solid-svg-icons"
 import {useRouter} from "next/router";
@@ -7,8 +7,7 @@ import {NavbarMobile} from "@/components/Layout/NavbarMobile";
 import React, {useEffect, useState} from "react";
 import {Category} from "@/interfaces/Category";
 import {NavbarItem} from "@/components/Layout/NavbarItem";
-import {DateWeather} from "@/components/DateWeather";
-import Bubble from "@/components/Bubble";
+import {Logo} from "@/components/Logo";
 
 export const Navbar = () => {
   const router = useRouter()
@@ -32,41 +31,32 @@ export const Navbar = () => {
     <>
       <Box as="section">
         <Box as="nav" bg="bg-surface" boxShadow="sm">
-          <Center>
-            <Image
-              src="/assets/icons/portada.jpg"
-              alt="Portada"
-              objectFit="cover"
-              w={"full"}
-              h={"300px"}
-              onClick={()=>router.push('/')}
-              cursor={"pointer"}
-            />
-          </Center>
           <HStack
             spacing="10"
             justify="space-between"
             px={{base: "5", lg: "10"}}
             py={{base: "5", lg: "5"}}
+            bg={"#ccc"}
           >
+            <Logo/>
             {isDesktop
               ? (<Flex
-                justify="space-between"
+                justify="center"
                 flex="1"
                 alignItems="center"
               >
-                <SimpleGrid
-                  columns={pages.length}
-                  spacing={10}
-                >
-                  {pages.map((page, index) => (
-                    <NavbarItem
-                      key={index}
-                      category={page}
-                      handleClickNav={handleClickNav}
-                    />
-                  ))}
-                </SimpleGrid>
+                  <SimpleGrid
+                    columns={6}
+                    spacing={10}
+                  >
+                    {pages.map((page, index) => (
+                      <NavbarItem
+                        key={index}
+                        category={page}
+                        handleClickNav={handleClickNav}
+                      />
+                    ))}
+                  </SimpleGrid>
               </Flex>)
               : (<IconButton
                 variant="ghost"
@@ -75,7 +65,6 @@ export const Navbar = () => {
                 onClick={onOpen}
               />)
             }
-            <Bubble/>
           </HStack>
         </Box>
       </Box>

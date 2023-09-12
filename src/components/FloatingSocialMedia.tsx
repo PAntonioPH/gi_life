@@ -13,7 +13,7 @@ export const FloatingSocialMedia = () => {
         mb={2}
         leftIcon={<FontAwesomeIcon icon={faFacebook}/>}
       >
-        La Opinión del Altiplano
+        GI Life
       </Button>
       <Button
         onClick={() => window.open('https://twitter.com/LaopinionHidalg')}

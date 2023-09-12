@@ -65,14 +65,14 @@ export function Sidebar(props: Props) {
         <title>{title}</title>
         <link rel="shortcut icon" href="/assets/icons/favicon.ico"/>
 
-        <meta property="og:title" content="La Opinión del Altiplano"/>
+        <meta property="og:title" content="GI Life"/>
         <meta property="og:type" content="website"/>
-        <meta property="og:description" content="El alma de la noticia"/>
-        <meta property="og:url" content="https://laopiniondelaltiplano.com"/>
-        <meta property="og:description" content="El alma de la noticia"/>
+        <meta property="og:description" content="Gi Life"/>
+        <meta property="og:url" content="https://gilife.mx"/>
+        <meta property="og:description" content="Gi Life"/>
         <meta property="og:image:width" content="600"/>
         <meta property="og:image:height" content="314"/>
-        <meta property="og:image" content="https://laopiniondelaltiplano.com/assets/icons/logoMeta.jpg"/>
+        <meta property="og:image" content="https://gilife.mx/assets/icons/logoMeta.jpg"/>
         <meta property="og:image:type" content="image/png"/>
       </Head>
 

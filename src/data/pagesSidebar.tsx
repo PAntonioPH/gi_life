@@ -1,6 +1,5 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faDashboard, faThumbtack, faTableCells, faUsers, faNewspaper} from "@fortawesome/free-solid-svg-icons";
-import {faFacebook} from "@fortawesome/free-brands-svg-icons";
+import {faDashboard, faTableCells, faUsers, faStore, faBoxesStacked} from "@fortawesome/free-solid-svg-icons";
 
 export const pagesSidebar = [
   {
@@ -11,23 +10,16 @@ export const pagesSidebar = [
     editor: false,
   },
   {
-    name: 'Periódicos',
-    icon: <FontAwesomeIcon icon={faNewspaper}/>,
-    dir: "/admin/periodicos",
+    name: 'Productos',
+    icon: <FontAwesomeIcon icon={faStore}/>,
+    dir: "/admin/productos",
     admin: true,
     editor: true,
   },
   {
-    name: 'Video Facebook',
-    icon: <FontAwesomeIcon icon={faFacebook}/>,
-    dir: "/admin/videoFacebook",
-    admin: true,
-    editor: true,
-  },
-  {
-    name: 'Entradas',
-    icon: <FontAwesomeIcon icon={faThumbtack}/>,
-    dir: "/admin/entradas",
+    name: 'Ordenes',
+    icon: <FontAwesomeIcon icon={faBoxesStacked}/>,
+    dir: "/admin/ordenes",
     admin: true,
     editor: true,
   },

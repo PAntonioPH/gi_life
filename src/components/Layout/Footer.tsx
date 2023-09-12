@@ -125,7 +125,7 @@ export const Footer = (props: BoxProps) => {
               pt={10}
               fontSize={"xs"}
             >
-              Derechos Reservados © 2023 La Opinión del Altiplano. Queda estrictamente
+              Derechos Reservados © 2023 GI Life. Queda estrictamente
               prohibida la reproducción, distribución, o cualquier uso no autorizado del contenido de este material, ya
               sea
               de forma
@@ -134,7 +134,7 @@ export const Footer = (props: BoxProps) => {
               reservados.
             </Text>
             <Text fontSize="xs" color="#6a1834">
-              &copy; {new Date().getFullYear()} La Opinión del Altiplano. All rights reserved.
+              &copy; {new Date().getFullYear()} GI Life. All rights reserved.
             </Text>
           </Flex>
         </Flex>

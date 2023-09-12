@@ -3,36 +3,33 @@ import {Sidebar} from "@/components/Sidebar/Sidebar";
 import {useRouter} from "next/router";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
-import {TableNewsPapers} from "@/components/NewsPapers/TableNewsPapers";
 
-const Usuarios = () => {
+const Productos = () => {
   const router = useRouter();
 
   return (
-    <Sidebar title={"Periódico"}>
+    <Sidebar title={"Productos"}>
       <Box pb={10}>
         <Flex
           justifyContent="space-between"
           alignItems="center"
         >
-          <Heading as="h1" size="lg">Periódicos</Heading>
+          <Heading as="h1" size="lg">Productos</Heading>
           <Button
-            onClick={() => router.push("/admin/periodicos/new")}
+            onClick={() => router.push("/admin/productos/new")}
             colorScheme="blue"
             variant="solid"
             size="sm"
             mx={5}
             rightIcon={<FontAwesomeIcon icon={faPlus}/>}
           >
-            Agregar Periódico
+            Agregar Producto
           </Button>
         </Flex>
         <Divider borderColor="black" borderWidth="1px"/>
       </Box>
-
-      <TableNewsPapers/>
     </Sidebar>
   )
 }
 
-export default Usuarios;
+export default Productos;

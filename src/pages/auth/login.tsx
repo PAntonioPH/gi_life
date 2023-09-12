@@ -68,11 +68,11 @@ const Login = () => {
         <meta property="og:title" content="GI Life"/>
         <meta property="og:type" content="website"/>
         <meta property="og:description" content="Gi Life"/>
-        <meta property="og:url" content="https://gilife.mx"/>
+        <meta property="og:url" content="https://gilife.com.mx/"/>
         <meta property="og:description" content="Gi Life"/>
         <meta property="og:image:width" content="600"/>
         <meta property="og:image:height" content="314"/>
-        <meta property="og:image" content="https://gilife.mx/assets/icons/logoMeta.jpg"/>
+        <meta property="og:image" content="https://gilife.com.mx//assets/icons/logoMeta.jpg"/>
         <meta property="og:image:type" content="image/jpeg"/>
         <meta property="og:image:type" content="image/png"/>
         <meta property="og:image:type" content="image/svg"/>

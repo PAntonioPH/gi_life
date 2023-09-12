@@ -18,13 +18,13 @@ export const Layout = (props: Props) => {
 
         <meta property="og:title" content="GI Life"/>
         <meta property="og:type" content="website"/>
-        <meta property="og:url" content="https://gilife.mx"/>
-        <meta property="og:image" content="https://gilife.mx/assets/icons/logoMeta.jpg"/>
-        <meta property="og:image/png" content="https://gilife.mx/assets/icons/logo.png"/>
+        <meta property="og:url" content="https://gilife.com.mx/"/>
+        <meta property="og:image" content="https://gilife.com.mx//assets/icons/logoMeta.jpg"/>
+        <meta property="og:image/png" content="https://gilife.com.mx//assets/icons/logo.png"/>
 
         <meta property="twitter:title" content="GI Life"/>
-        <meta property="twitter:site" content="https://gilife.mx"/>
-        <meta property="twitter:image" content="https://gilife.mx/assets/icons/logo.png"/>
+        <meta property="twitter:site" content="https://gilife.com.mx/"/>
+        <meta property="twitter:image" content="https://gilife.com.mx//assets/icons/logo.png"/>
       </Head>
 
       <Flex direction="column" flex="1">

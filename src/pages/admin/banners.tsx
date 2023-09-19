@@ -3,6 +3,7 @@ import {Sidebar} from "@/components/Sidebar/Sidebar";
 import {useRouter} from "next/router";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
+import {TableBanner} from "@/components/Banner/TableBanner";
 
 const Banners = () => {
   const router = useRouter();
@@ -28,6 +29,8 @@ const Banners = () => {
         </Flex>
         <Divider borderColor="black" borderWidth="1px"/>
       </Box>
+
+      <TableBanner/>
     </Sidebar>
   )
 }

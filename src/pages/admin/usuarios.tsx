@@ -30,7 +30,6 @@ const Usuarios = () => {
         <Divider borderColor="black" borderWidth="1px"/>
       </Box>
 
-
       <TableUsers/>
     </Sidebar>
   )

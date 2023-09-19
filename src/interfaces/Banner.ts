@@ -1,5 +1,5 @@
 export interface Banner {
   id: number;
-  image: string;
+  img: string;
   title: string;
 }

@@ -5,34 +5,72 @@ import {conn} from "@/utils/database";
 import {query_insert} from "@/utils/postgres";
 
 const product = async (req: NextApiRequest, res: NextApiResponse) => {
-  const {method, body} = req
+  const {method, body, query} = req
 
   let response: any
 
   switch (method) {
     case "GET":
       try {
-        response = await conn.query(`SELECT p.id,
-                                            p.name,
-                                            p.price,
-                                            p.discount,
-                                            p.stock,
-                                            p.description,
-                                            p.images,
-                                            c.name as category
-                                     FROM product AS p
-                                              JOIN categories c on p.id_category = c.id
-                                     WHERE p.active = true
-                                     ORDER BY p.id DESC;`)
+        const {category, page} = query
 
-        if (response.rows.length > 0) {
-          for (let i = 0; i < response.rows.length; i++) {
-            let product = response.rows[i]
-            product.images = JSON.parse(product.images)
+        if (category) {
+          if (typeof page !== "string" || !parseInt(page)) return res.status(500).json(message("Error, el parámetro page es requerido"))
+
+          const responseProducts = await conn.query(`SELECT p.*
+                                                     FROM (SELECT CEIL(ROW_NUMBER() OVER (ORDER BY p.id DESC) / 13) AS grupo,
+                                                                  p.*
+                                                           FROM product AS p
+                                                                    JOIN categories c on c.id = p.id_category
+                                                           WHERE p.active = true
+                                                               ${typeof category === "string" && parseInt(category) && category !== "0" ? ` AND c.url = '${category}' ` : `  AND c.url = '${category}' `}) as p
+                                                     WHERE p.grupo = ${parseInt(page) - 1};`)
+
+          if (responseProducts.rows.length > 0) responseProducts.rows.forEach((post: any) => delete post.grupo)
+
+          const responseCount = await conn.query(`SELECT COUNT(p.id) as count
+                                                  FROM product AS p
+                                                           JOIN categories c on c.id = p.id_category
+                                                  WHERE p.active = true
+                                                    AND c.url = '${category}';`)
+
+          if (responseProducts.rows.length > 0) {
+            for (let i = 0; i < responseProducts.rows.length; i++) {
+              let product = responseProducts.rows[i]
+              product.images = JSON.parse(product.images)
+            }
           }
-        }
 
-        return res.status(200).json(message("Productos consultados", response.rows))
+          response = {
+            product: responseProducts.rows,
+            total: Math.ceil(responseCount.rows[0].count / 13),
+            currentPage: parseInt(page)
+          }
+
+          return res.status(200).json(message("Productos consultados", response))
+        } else {
+          response = await conn.query(`SELECT p.id,
+                                              p.name,
+                                              p.price,
+                                              p.discount,
+                                              p.stock,
+                                              p.description,
+                                              p.images,
+                                              c.name as category
+                                       FROM product AS p
+                                                JOIN categories c on p.id_category = c.id
+                                       WHERE p.active = true
+                                       ORDER BY p.id DESC;`)
+
+          if (response.rows.length > 0) {
+            for (let i = 0; i < response.rows.length; i++) {
+              let product = response.rows[i]
+              product.images = JSON.parse(product.images)
+            }
+          }
+
+          return res.status(200).json(message("Productos consultados", response.rows))
+        }
       } catch (e) {
         return res.status(500).json(message("Error, al consultar los productos"))
       }

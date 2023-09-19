@@ -1,5 +1,5 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faDashboard, faTableCells, faUsers, faStore, faBoxesStacked} from "@fortawesome/free-solid-svg-icons";
+import {faDashboard, faTableCells, faUsers, faStore, faBoxesStacked, faSign} from "@fortawesome/free-solid-svg-icons";
 
 export const pagesSidebar = [
   {
@@ -20,6 +20,13 @@ export const pagesSidebar = [
     name: 'Ordenes',
     icon: <FontAwesomeIcon icon={faBoxesStacked}/>,
     dir: "/admin/ordenes",
+    admin: true,
+    editor: true,
+  },
+  {
+    name: 'Banners',
+    icon: <FontAwesomeIcon icon={faSign}/>,
+    dir: "/admin/banners",
     admin: true,
     editor: true,
   },

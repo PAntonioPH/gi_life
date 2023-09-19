@@ -3,6 +3,7 @@ import {Sidebar} from "@/components/Sidebar/Sidebar";
 import {useRouter} from "next/router";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
+import {TableProduct} from "@/components/Product/TableProduct";
 
 const Productos = () => {
   const router = useRouter();
@@ -28,6 +29,8 @@ const Productos = () => {
         </Flex>
         <Divider borderColor="black" borderWidth="1px"/>
       </Box>
+
+      <TableProduct/>
     </Sidebar>
   )
 }

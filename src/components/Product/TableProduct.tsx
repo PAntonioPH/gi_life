@@ -1,27 +1,27 @@
-import {Button, Table, TableContainer, Tbody, Td, Th, Thead, Tr, Image} from "@chakra-ui/react";
+import {Button, Table, TableContainer, Tbody, Td, Th, Thead, Tr} from "@chakra-ui/react";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {useRouter} from "next/router";
 import {LoadingPage} from "@/components/LoadingPage";
-import {Banner} from "@/interfaces/Banner";
+import {Product} from "@/interfaces/Product";
 
-const columns = ["id", "Título", "Imagen",]
+const columns = ["id", "Nombre", "Precio", "Descuento", "Total", "Cantidad", "Categoría"]
 
-export const TableBanner = () => {
+export const TableProduct = () => {
   const router = useRouter();
 
-  const [data, setData] = useState<Banner[]>([]);
+  const [data, setData] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get("/api/v1/banner", {headers: {Authorization: `${process.env.NEXT_PUBLIC_TOKEN_WEB}`}})
+    axios.get("/api/v1/product", {headers: {Authorization: `${process.env.NEXT_PUBLIC_TOKEN_WEB}`}})
       .then(res => {
         setData(res.data.response);
         setLoading(false);
       })
   }, [])
 
-  const handleClick = async (id: number) => await router.push(`/admin/banners/edit/${id}`)
+  const handleClick = async (id: number) => await router.push(`/admin/productos/edit/${id}`)
 
   return (
     <>
@@ -48,14 +48,12 @@ export const TableBanner = () => {
                   data.map((row) => (
                     <Tr key={row.id}>
                       <Td>{row.id}</Td>
-                      <Td>{row.title}</Td>
-                      <Td>
-                        <Image
-                          src={row.img}
-                          alt={row.title}
-                          h={10}
-                        />
-                      </Td>
+                      <Td>{row.name}</Td>
+                      <Td>$ {row.price.toLocaleString()}</Td>
+                      <Td>{row.discount} %</Td>
+                      <Td>$ {(row.price - (row.price * (row.discount / 100))).toLocaleString()}</Td>
+                      <Td>{row.stock.toLocaleString()}</Td>
+                      <Td>{row.category}</Td>
                       <Td><Button colorScheme="red" variant="link" onClick={() => handleClick(row.id)}>Ver mas...</Button></Td>
                     </Tr>
                   ))

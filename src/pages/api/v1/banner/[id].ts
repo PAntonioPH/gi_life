@@ -2,7 +2,7 @@ import {NextApiRequest, NextApiResponse} from "next";
 import {filtrar_llaves, message, validar_llaves} from "@/utils/functions";
 import {conn} from "@/utils/database";
 import {uploadFile} from "@/utils/s3";
-import {query_insert, query_update} from "@/utils/postgres";
+import {query_update} from "@/utils/postgres";
 
 const banner = async (req: NextApiRequest, res: NextApiResponse) => {
   const {method, query, body} = req

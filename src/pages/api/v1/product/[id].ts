@@ -59,6 +59,8 @@ const product = async (req: NextApiRequest, res: NextApiResponse) => {
           }
 
           body.images = JSON.stringify(tempImages)
+        } else {
+          body.images = JSON.stringify([])
         }
 
         const keys_filter = ["name", "price", "discount", "stock", "description", "images", "id_category"]
@@ -83,8 +85,8 @@ const product = async (req: NextApiRequest, res: NextApiResponse) => {
       } catch (e) {
         return res.status(500).json(message("Error, al eliminar el producto"))
       }
-      default:
-        return res.status(405).json(message("Error, método no permitido"))
+    default:
+      return res.status(405).json(message("Error, método no permitido"))
   }
 }
 

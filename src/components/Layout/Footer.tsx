@@ -95,7 +95,7 @@ export const Footer = (props: BoxProps) => {
           </Heading>
 
           <SimpleGrid
-            columns={{base: 3, md: 7}}
+            columns={{base: 3, md: 8}}
             spacing={3}
           >
             {sections.map((section, index) => (

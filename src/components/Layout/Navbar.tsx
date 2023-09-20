@@ -8,6 +8,7 @@ import React, {useEffect, useState} from "react";
 import {Category} from "@/interfaces/Category";
 import {NavbarItem} from "@/components/Layout/NavbarItem";
 import {Logo} from "@/components/Logo";
+import {Search} from "@/components/Layout/Search";
 
 export const Navbar = () => {
   const router = useRouter()
@@ -29,34 +30,36 @@ export const Navbar = () => {
 
   return (
     <>
-      <Box as="section">
-        <Box as="nav" bg="bg-surface" boxShadow="sm">
+      <HStack as="section" bg={"#ccc"} pl={5}>
+        <Logo />
+        <Box
+          as="nav"
+          boxShadow="sm"
+        >
           <HStack
             spacing="10"
             justify="space-between"
             px={{base: "5", lg: "10"}}
             py={{base: "5", lg: "5"}}
-            bg={"#ccc"}
           >
-            <Logo/>
             {isDesktop
               ? (<Flex
                 justify="center"
                 flex="1"
                 alignItems="center"
               >
-                  <SimpleGrid
-                    columns={7}
-                    spacing={10}
-                  >
-                    {pages.map((page, index) => (
-                      <NavbarItem
-                        key={index}
-                        category={page}
-                        handleClickNav={handleClickNav}
-                      />
-                    ))}
-                  </SimpleGrid>
+                <SimpleGrid
+                  columns={7}
+                  spacing={10}
+                >
+                  {pages.map((page, index) => (
+                    <NavbarItem
+                      key={index}
+                      category={page}
+                      handleClickNav={handleClickNav}
+                    />
+                  ))}
+                </SimpleGrid>
               </Flex>)
               : (<IconButton
                 variant="ghost"
@@ -66,8 +69,9 @@ export const Navbar = () => {
               />)
             }
           </HStack>
+          <Search/>
         </Box>
-      </Box>
+      </HStack>
       <NavbarMobile
         isOpen={isOpen}
         onClose={onClose}

@@ -94,6 +94,8 @@ const product = async (req: NextApiRequest, res: NextApiResponse) => {
           }
 
           body.images = JSON.stringify(tempImages)
+        } else {
+          body.images = JSON.stringify([])
         }
 
         const keys_filter = ["name", "price", "discount", "stock", "description", "images", "id_category"]

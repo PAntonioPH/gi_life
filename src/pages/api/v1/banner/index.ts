@@ -18,7 +18,7 @@ const banner = async (req: NextApiRequest, res: NextApiResponse) => {
                                      ORDER BY id DESC;`)
 
         return res.status(200).json(message("Banners consultados", response.rows))
-      }catch (e) {
+      } catch (e) {
         return res.status(500).json(message("Error, al consultar los banners"))
       }
     case "POST":
@@ -43,6 +43,8 @@ const banner = async (req: NextApiRequest, res: NextApiResponse) => {
       } catch (e) {
         return res.status(500).json(message("Error, al registrar el banner"))
       }
+    default:
+      return res.status(405).json(message("Error, método no permitido"))
   }
 }
 

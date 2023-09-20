@@ -83,6 +83,8 @@ const product = async (req: NextApiRequest, res: NextApiResponse) => {
       } catch (e) {
         return res.status(500).json(message("Error, al eliminar el producto"))
       }
+      default:
+        return res.status(405).json(message("Error, método no permitido"))
   }
 }
 

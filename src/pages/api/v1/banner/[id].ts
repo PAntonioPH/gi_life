@@ -63,6 +63,8 @@ const banner = async (req: NextApiRequest, res: NextApiResponse) => {
       } catch (e) {
         return res.status(500).json(message("Error, al eliminar el banner"))
       }
+    default:
+      return res.status(405).json(message("Error, método no permitido"))
   }
 }
 

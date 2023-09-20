@@ -3,6 +3,7 @@ import {filtrar_llaves, message, validar_llaves} from "@/utils/functions";
 import {uploadFile} from "@/utils/s3";
 import {conn} from "@/utils/database";
 import {query_insert} from "@/utils/postgres";
+import {decodeHTML5} from "entities";
 
 const product = async (req: NextApiRequest, res: NextApiResponse) => {
   const {method, body, query} = req
@@ -35,10 +36,8 @@ const product = async (req: NextApiRequest, res: NextApiResponse) => {
                                                     AND c.url = '${category}';`)
 
           if (responseProducts.rows.length > 0) {
-            for (let i = 0; i < responseProducts.rows.length; i++) {
-              let product = responseProducts.rows[i]
-              product.images = JSON.parse(product.images)
-            }
+            responseProducts.rows.forEach((product: any) => product.images = JSON.parse(product.images))
+            responseProducts.rows.forEach((product: any) => product.description = decodeHTML5(product.description).replace(/<[^>]*>?/gm, ''))
           }
 
           response = {
@@ -105,6 +104,8 @@ const product = async (req: NextApiRequest, res: NextApiResponse) => {
         console.log(e)
         return res.status(500).json(message("Error, al registrar el producto"))
       }
+    default:
+      return res.status(405).json(message("Error, método no permitido"))
   }
 }
 

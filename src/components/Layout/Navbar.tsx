@@ -46,7 +46,7 @@ export const Navbar = () => {
                 alignItems="center"
               >
                   <SimpleGrid
-                    columns={6}
+                    columns={7}
                     spacing={10}
                   >
                     {pages.map((page, index) => (

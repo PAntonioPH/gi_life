@@ -25,6 +25,7 @@ const product = async (req: NextApiRequest, res: NextApiResponse) => {
                                      FROM product AS p
                                               JOIN categories c on p.id_category = c.id
                                      WHERE p.active = true
+                                       AND p.id = '${id}'
                                      ORDER BY p.id DESC;`)
 
         if (response.rows.length <= 0) return res.status(404).json(message("Producto no encontrado"))

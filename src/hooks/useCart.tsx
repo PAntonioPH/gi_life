@@ -1,4 +1,5 @@
-import React, {createContext, useContext, useState, ReactNode} from "react";
+import React, {createContext, useContext, useState, ReactNode, useEffect} from "react";
+import Cookies from "js-cookie";
 
 interface Product {
   id: number;
@@ -38,24 +39,42 @@ interface CartProviderProps {
 export const CartProvider: React.FC<CartProviderProps> = ({children}) => {
   const [cart, setCart] = useState<Product[]>([]);
 
+  useEffect(() => {
+    const cartCookie = Cookies.get('cart');
+    if (cartCookie) {
+      setCart(JSON.parse(cartCookie));
+    }
+  }, [])
+
   const addProduct = (product: Product) => {
     const exist = cart.find((item) => item.id === product.id);
+    let newCart: Product[];
+
     if (exist) {
-      setCart((prevCart) => prevCart.map((item) => item.id === product.id ? {...exist, count: exist.count! + 1} : item));
+      newCart = cart.map((item) => item.id === product.id ? {...exist, count: exist.count! + 1} : item);
     } else {
-      setCart((prevCart) => [...prevCart, {...product, count: 1}]);
+      newCart = [...cart, {...product, count: 1}];
     }
+
+    setCart(newCart);
+    Cookies.set('cart', JSON.stringify(newCart));
   };
+
 
   const removeProduct = (product: Product) => {
     const exist = cart.find((item) => item.id === product.id);
+    let newCart: Product[] = [];
+
     if (exist) {
       if (exist.count === 1) {
-        setCart((prevCart) => prevCart.filter((item) => item.id !== product.id));
+        newCart = cart.filter((item) => item.id !== product.id);
       } else {
-        setCart((prevCart) => prevCart.map((item) => item.id === product.id ? {...exist, count: exist.count! - 1} : item));
+        newCart = cart.map((item) => item.id === product.id ? {...exist, count: exist.count! - 1} : item);
       }
     }
+
+    setCart(newCart);
+    Cookies.set('cart', JSON.stringify(newCart));
   }
 
   const clearCart = () => {

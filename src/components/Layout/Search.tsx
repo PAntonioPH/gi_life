@@ -20,8 +20,10 @@ export const Search = () => {
   return (<Flex
     justify="center"
     p={4}
+    w={"80%"}
+    minW={{base: "auto", lg: "xl"}}
   >
-    <form onSubmit={handleSearch}>
+    <form onSubmit={handleSearch} style={{width: "100%"}}>
       <FormControl>
         <InputGroup>
           <InputRightElement
@@ -30,7 +32,7 @@ export const Search = () => {
           >
             <FontAwesomeIcon icon={faSearch}/>
           </InputRightElement>
-          <Input type="text" placeholder="Buscar" value={search} onChange={handleChange} name="search" borderColor={"blackAlpha.500"} bg={"white"} w={"800px"}/>
+          <Input type="text" placeholder="Buscar" value={search} onChange={handleChange} name="search" borderColor={"blackAlpha.500"} bg={"white"} w={"full"}/>
         </InputGroup>
       </FormControl>
     </form>

@@ -3,12 +3,14 @@ import {useRouter} from "next/router";
 import {Box, Image, Flex, Heading, SimpleGrid, Text} from "@chakra-ui/react";
 import {useEffect, useState} from "react";
 import axios from "axios";
-import {Product} from "@/interfaces/Product";
 import {LoadingPage} from "@/components/LoadingPage";
 import {Pagination} from "@/components/Pagination";
+import {useCart} from "@/hooks/useCart";
+import {Product} from "@/interfaces/Product";
 
 const Search = () => {
   const router = useRouter()
+  const {addProduct} = useCart()
 
   const {search} = router.query
 
@@ -55,6 +57,8 @@ const Search = () => {
                   alignItems="center"
                   justifyContent="center"
                   direction="column"
+                  cursor="pointer"
+                  onClick={() => addProduct({...row, count: 1})}
                 >
                   <Heading
                     as="h2"

@@ -9,6 +9,7 @@ import {Category} from "@/interfaces/Category";
 import {NavbarItem} from "@/components/Layout/NavbarItem";
 import {Logo} from "@/components/Logo";
 import {Search} from "@/components/Layout/Search";
+import {CartDrawer} from "@/components/Cart/CartDrawer";
 
 export const Navbar = () => {
   const router = useRouter()
@@ -30,11 +31,17 @@ export const Navbar = () => {
 
   return (
     <>
-      <HStack as="section" bg={"#ccc"} pl={5}>
-        <Logo />
+      <Flex
+        as="section"
+        bg={"#ccc"}
+        pl={5}
+        alignItems={"center"}
+        justifyContent={"space-evenly"}
+        p={5}
+      >
+        <Logo/>
         <Box
           as="nav"
-          boxShadow="sm"
         >
           <HStack
             spacing="10"
@@ -69,9 +76,33 @@ export const Navbar = () => {
               />)
             }
           </HStack>
-          <Search/>
+          {
+            isDesktop
+            && (<Flex
+              justify="space-evenly"
+              alignItems="center"
+            >
+              <Search/>
+              <CartDrawer/>
+            </Flex>)
+          }
         </Box>
-      </HStack>
+      </Flex>
+
+      {
+        !isDesktop
+        && (<Flex
+          as="section"
+          bg={"#ccc"}
+          direction={"row"}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
+          <Search/>
+          <CartDrawer/>
+        </Flex>)
+      }
+
       <NavbarMobile
         isOpen={isOpen}
         onClose={onClose}

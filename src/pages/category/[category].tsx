@@ -1,7 +1,7 @@
 import {useRouter} from "next/router";
 import {Layout} from "@/components/Layout/Layout";
 import {useEffect, useState} from "react";
-import {Badge, Box, Flex, Heading, Image, SimpleGrid, Text} from "@chakra-ui/react";
+import {Badge, Box, Flex, Heading, HStack, Image, SimpleGrid, Text} from "@chakra-ui/react";
 import {Product} from "@/interfaces/Product";
 import axios from "axios";
 import product from "@/pages/api/v1/product";
@@ -71,50 +71,46 @@ const Category = () => {
                   }
                 </Heading>
 
+                <HStack>
+                  <Text
+                    as={discount > 0 ? 'del' : "text"}
+                    color={discount > 0 ? 'red' : "black"}
+                  >
+                    $ {price.toLocaleString("es-MX", {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                  </Text>
+
+                  {
+                    discount > 0
+                    && (<Text>
+                      $ {(price - (price * discount) / 100).toLocaleString("es-MX", {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                    </Text>)
+                  }
+                </HStack>
+
+
                 {
-                  price &&
-                  (<>
-                      <Text
-                        px={5}
-                      >
-                        Precio:
-                      </Text>
-                      <Text
-                      color={"#2db66f"}
-                      >
-                        <Text
-                          as={'del'}
-                          color={"red"}
-                          px={5}
-                        >
-                          ${price}</Text> || ${price - (price * discount) / 100}
-                      </Text>
-                    </>
-                  )
+                  discount > 0
+                  && (<Flex
+                    direction={"row"}
+                    alignItems={"center"}
+                    px={5}
+                    my={2}
+                  >
+                    <Badge
+                      borderRadius='lg'
+                      px='2'
+                      py={2}
+                      colorScheme='teal'>
+                      Descuento:
+                    </Badge>
+                    <Text
+                      mx={2}
+                    >
+                      {discount}%
+                    </Text>
+                  </Flex>)
                 }
 
-                {discount > 0
-                  && (<>
-                    <Flex
-                      direction={"row"}
-                      px={5}
-                      my={2}
-                    >
-                      <Badge
-                        borderRadius='lg'
-                        px='2'
-                        py={2}
-                        colorScheme='teal'>
-                        Descuento:
-                      </Badge>
-                      <Text
-                        mx={2}
-                      >
-                        {discount}%
-                      </Text>
-                    </Flex>
-                  </>)
-                }
                 <Text
                   px={5}
                 >

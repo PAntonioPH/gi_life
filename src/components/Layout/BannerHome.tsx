@@ -1,27 +1,17 @@
-import {Layout} from "@/components/Layout/Layout";
-import {Product} from "@/interfaces/Product";
+import {Box} from "@chakra-ui/react";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import process from "process";
 import {LoadingPage} from "@/components/LoadingPage";
-import {Badge, Box} from "@chakra-ui/react";
-import {BannerHome} from "@/components/Layout/BannerHome";
+import {SliderBanner} from "@/components/SliderBanner";
+import {Banner} from "@/interfaces/Banner";
 
-
-interface ResponsePost {
-  id: number,
-  name: string,
-  url: string,
-  products: Product[]
-}
-
-
-const Index = () => {
-  const [data, setData] = useState<ResponsePost[]>([])
+export const BannerHome = () => {
+  const [data, setData] = useState<Banner[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    axios.get('api/v1/home',
+    axios.get('api/v1/banner',
       {
         headers: {Authorization: `${process.env.NEXT_PUBLIC_TOKEN_WEB}`}
       })
@@ -30,18 +20,16 @@ const Index = () => {
       })
       .finally(() => setIsLoading(false))
   }, [])
-
-  return (
-    <Layout title={"GI Life"}>
+  return (<>
       {
         isLoading
           ? (<LoadingPage/>)
           : (<Box>
-            <BannerHome/>
+            <SliderBanner
+              banner={data}
+            />
           </Box>)
       }
-    </Layout>
+    </>
   )
 }
-
-export default Index

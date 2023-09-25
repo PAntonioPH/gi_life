@@ -100,3 +100,21 @@ export const validate_cookie = async (req: NextApiRequest, nameCookie: string) =
     return {}
   }
 }
+
+export const removeAccents = (text: string) => {
+  const mapaAcentos: { [key: string]: string } = {
+    'á': 'a', 'é': 'e', 'í': 'i', 'ó': 'o', 'ú': 'u',
+    'Á': 'A', 'É': 'E', 'Í': 'I', 'Ó': 'O', 'Ú': 'U',
+    'à': 'a', 'è': 'e', 'ì': 'i', 'ò': 'o', 'ù': 'u',
+    'À': 'A', 'È': 'E', 'Ì': 'I', 'Ò': 'O', 'Ù': 'U',
+    'â': 'a', 'ê': 'e', 'î': 'i', 'ô': 'o', 'û': 'u',
+    'Â': 'A', 'Ê': 'E', 'Î': 'I', 'Ô': 'O', 'Û': 'U',
+    'ã': 'a', 'õ': 'o',
+    'Ã': 'A', 'Õ': 'O',
+    'ä': 'a', 'ë': 'e', 'ï': 'i', 'ö': 'o', 'ü': 'u',
+    'Ä': 'A', 'Ë': 'E', 'Ï': 'I', 'Ö': 'O', 'Ü': 'U',
+    'ç': 'c', 'Ç': 'C',
+  };
+
+  return text.replace(/[\u00C0-\u00FF]/g, char => mapaAcentos[char] || char);
+};

@@ -1,10 +1,10 @@
-import {faPlus, faMinus} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon,} from "@fortawesome/react-fontawesome";
-import {IconButton, Text, Image, Flex, HStack, Stack} from "@chakra-ui/react";
+import {faPlus, faMinus, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {IconButton, Text, Image, Flex, HStack, Stack, Input} from "@chakra-ui/react";
 import {useCart} from "@/hooks/useCart";
 
 export const CartList = () => {
-  const {cart, removeProduct, addProduct} = useCart()
+  const {cart, removeProduct, addProduct, setCount, deleteProduct} = useCart()
 
   return (<>
       {
@@ -47,9 +47,15 @@ export const CartList = () => {
                   onClick={() => removeProduct(item)}
                 />
 
-                <Text>
-                  {item.count}
-                </Text>
+                <Input
+                  type={"number"}
+                  value={item.count}
+                  onChange={(e) => setCount(item, parseInt(e.target.value))}
+                  min={1}
+                  max={item.stock}
+                  w={"100px"}
+                  textAlign={"center"}
+                />
 
                 <IconButton
                   aria-label={'add'}
@@ -65,9 +71,18 @@ export const CartList = () => {
 
             </Stack>
 
-            <Text>
-              $ {(item.price * item.count).toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-            </Text>
+            <HStack>
+              <Text>
+                $ {(item.price * item.count).toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+              </Text>
+
+              <IconButton
+                aria-label={'delete'}
+                icon={<FontAwesomeIcon icon={faTrash}/>}
+                variant="unstyled"
+                onClick={() => deleteProduct(item)}
+              />
+            </HStack>
           </Flex>
         ))
       }

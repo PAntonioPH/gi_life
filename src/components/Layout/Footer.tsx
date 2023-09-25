@@ -21,6 +21,7 @@ export const Footer = (props: BoxProps) => {
         setSections(res.data.response)
       })
   }, [])
+
   const redes = [
     {
       name: "Facebook",

@@ -1,7 +1,7 @@
 import {useRouter} from "next/router";
 import {Layout} from "@/components/Layout/Layout";
 import {useEffect, useState} from "react";
-import {Badge, Box, Flex, Heading, HStack, Image, SimpleGrid, Text} from "@chakra-ui/react";
+import {Badge, Flex, Heading, HStack, Image, SimpleGrid, Text} from "@chakra-ui/react";
 import {Product} from "@/interfaces/Product";
 import axios from "axios";
 import {Pagination} from "@/components/Pagination";
@@ -12,7 +12,7 @@ const Category = () => {
   const router = useRouter()
   const [data, setData] = useState<Product[]>([])
 
-  const [isloading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(true)
 
   const [currentPage, setCurrentPage] = useState(1)
   const [totalPages, setTotalPages] = useState(0)
@@ -36,7 +36,7 @@ const Category = () => {
       title={typeof category === "string" ? `${category[0].toUpperCase()}${category.slice(1, category.length)}` : "category"}
     >
       {
-        isloading
+        loading
           ? (<LoadingPage/>)
           : (<>
             <Flex

@@ -23,7 +23,7 @@ export const CartList = () => {
               alignItems={"center"}
             >
               <Image
-                src={item.images[0] ? item.images[0] : '/assets/images/no-image.png'}
+                src={item.images[0] || '/assets/images/placeholderImg.jpg'}
                 alt={item.name}
                 width={{base: "80px", md: "100"}}
               />

@@ -1,5 +1,5 @@
 import {Layout} from "@/components/Layout/Layout";
-import {Box, Button, Flex, Heading, Text} from "@chakra-ui/react";
+import {Box, Button, Flex, Text} from "@chakra-ui/react";
 import {CartList} from "@/components/Cart/CartList";
 import {useCart} from "@/hooks/useCart";
 import {useRouter} from "next/router";

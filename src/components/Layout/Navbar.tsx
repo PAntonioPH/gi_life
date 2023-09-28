@@ -38,6 +38,8 @@ export const Navbar = () => {
         alignItems={"center"}
         justifyContent={"space-evenly"}
         p={5}
+        bgGradient="linear(to-b, #9d0f3a, white, white)"
+
       >
         <Logo/>
         <Box

@@ -46,6 +46,7 @@ export const SliderBanner = ({banner}: Props) => {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'end',
+            borderRadius: '25px'
           }}
         >
           <Flex

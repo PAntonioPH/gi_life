@@ -27,7 +27,7 @@ export const Layout = (props: Props) => {
         <meta property="twitter:image" content="https://gilife.com.mx//assets/icons/logo.png"/>
       </Head>
 
-      <Flex direction="column" flex="1">
+      <Flex direction="column" flex="1" bg={"#ebebeb"}>
         <Navbar/>
 
         <Flex

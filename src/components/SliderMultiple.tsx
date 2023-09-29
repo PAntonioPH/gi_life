@@ -26,7 +26,7 @@ export const SliderMultiple = ({products, url}: Props) => {
     return () => clearInterval(interval);
   }, [products.length]);
 
-  const handlePrevImage = () => (current === 0) ? setCurrent(products.length - steps) : setCurrent((prev) => prev - steps);
+  const handlePrevImage = () => (current === 0) ? setCurrent(0) : setCurrent((prev) => prev - steps);
 
   const handleNextImage = () => (current + steps >= products.length) ? setCurrent(0) : setCurrent((prev) => prev + steps);
 

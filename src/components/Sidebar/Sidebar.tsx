@@ -47,7 +47,7 @@ export function Sidebar(props: Props) {
             setPages(pagesSidebar.filter(inicialPage => inicialPage.admin));
             break;
           case 2:
-            setPages(pagesSidebar.filter(inicialPage => inicialPage.editor));
+            setPages(pagesSidebar.filter(inicialPage => inicialPage.staff));
             break;
         }
 

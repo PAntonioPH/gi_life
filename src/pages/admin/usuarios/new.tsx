@@ -20,7 +20,8 @@ const New = () => {
     name: "",
     last_name: "",
     email: "",
-    id_rol: ""
+    id_rol: "",
+    phone: ""
   })
 
   const [dataFormError, setDataFormError] = useState({
@@ -29,7 +30,8 @@ const New = () => {
     name: false,
     last_name: false,
     email: false,
-    id_rol: false
+    id_rol: false,
+    phone: false
   })
 
   const [roles, setRoles] = useState<Role[]>([]);
@@ -67,9 +69,28 @@ const New = () => {
   }, [router.query, toast]);
 
   const handleChange = ({target: {value, name}}: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setDataForm({...dataForm, [name]: value});
+    let tempValue: string
 
-    setDataFormError({...dataFormError, [name]: value.length === 0})
+    switch (name) {
+      case "username":
+        tempValue = value.replace(/[^a-zA-Z0-9]/g, "")
+        break
+      case "password":
+        tempValue = value.replace(/[^a-zA-Z0-9]/g, "").replace(/ /g, "")
+        break
+      case "phone":
+        tempValue = value.replace(/[^0-9]/g, "").replace(/ /g, "").substring(0, 10)
+        break
+      case "email":
+        tempValue = value.replace(/ /g, "")
+        break
+      default:
+        tempValue = value
+    }
+
+    setDataForm({...dataForm, [name]: tempValue});
+
+    setDataFormError({...dataFormError, [name]: tempValue.length === 0})
   }
 
   const handleSubmit = (e: FormEvent) => {
@@ -200,6 +221,11 @@ const New = () => {
                 <FormLabel>Email</FormLabel>
                 <Input name="email" onChange={handleChange} value={dataForm.email} type={"email"} borderColor={"blackAlpha.500"} isRequired/>
                 {dataFormError.email && <FormHelperText color={"red"} fontSize={"sm"}>Este campo es obligatorio</FormHelperText>}
+              </FormControl>
+              <FormControl>
+                <FormLabel>Teléfono</FormLabel>
+                <Input name="phone" onChange={handleChange} value={dataForm.phone} type={"text"} borderColor={"blackAlpha.500"} isRequired/>
+                {dataFormError.phone && <FormHelperText color={"red"} fontSize={"sm"}>Este campo es obligatorio</FormHelperText>}
               </FormControl>
               <FormControl>
                 <FormLabel>Rol</FormLabel>

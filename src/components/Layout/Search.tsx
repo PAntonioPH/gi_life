@@ -19,7 +19,7 @@ export const Search = () => {
 
   return (<Flex
     justify="center"
-    p={4}
+    py={4}
     w={"80%"}
     minW={{base: "auto", lg: "xl"}}
   >

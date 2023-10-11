@@ -7,7 +7,6 @@ import {Category} from "@/interfaces/Category";
 import axios from "axios";
 import {useRouter} from "next/router";
 
-
 export const Footer = (props: BoxProps) => {
   const router = useRouter()
   const handleClick = async (url: string) => await router.push(url === "/" ? "/" : `/category/${url}`)
@@ -44,7 +43,7 @@ export const Footer = (props: BoxProps) => {
     <Box as="footer" role="contentinfo" px={{base: '8'}} mt={10} bgGradient="linear(to-t, #9d0f3a, white, white)"
          {...props}>
       <Flex
-        pt={{base: '12', md: '10'}}
+        py={{base: '12', md: '10'}}
         direction={{base: 'column', md: 'row'}}
       >
         <Flex

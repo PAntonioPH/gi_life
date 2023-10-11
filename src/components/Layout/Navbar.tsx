@@ -1,4 +1,4 @@
-import {Box, Flex, HStack, IconButton, SimpleGrid, useBreakpointValue, useDisclosure} from '@chakra-ui/react'
+import {Box, Button, Flex, HStack, IconButton, Menu, MenuButton, MenuItem, MenuList, SimpleGrid, useBreakpointValue, useDisclosure} from '@chakra-ui/react'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faBars} from "@fortawesome/free-solid-svg-icons"
 import {useRouter} from "next/router";
@@ -10,6 +10,7 @@ import {NavbarItem} from "@/components/Layout/NavbarItem";
 import {Logo} from "@/components/Logo";
 import {Search} from "@/components/Layout/Search";
 import {CartDrawer} from "@/components/Cart/CartDrawer";
+import Cookies from "js-cookie";
 
 export const Navbar = () => {
   const router = useRouter()
@@ -17,7 +18,27 @@ export const Navbar = () => {
   const {isOpen, onOpen, onClose} = useDisclosure()
   const [pages, setPages] = useState<Category[]>([])
 
+  const [username, setUsername] = useState<string | null>("")
+
+  useEffect(() => {
+    let cookie = Cookies.get("user");
+    let user = cookie ? JSON.parse(cookie) : null;
+
+    if (user) setUsername(user.username)
+  }, [])
+
   const handleClickNav = async (url: string) => await router.push(url === "/" ? "/" : `/category${url}`)
+
+  const onClickLogOut = async () => {
+    try {
+      await axios.get("/api/v1/auth", {headers: {Authorization: `${process.env.NEXT_PUBLIC_TOKEN_WEB}`}})
+    } catch (e) {
+      console.log(e)
+    }
+
+    Cookies.remove("user")
+    location.reload();
+  }
 
   useEffect(() => {
     axios.get('/api/v1/categories', {
@@ -80,13 +101,39 @@ export const Navbar = () => {
           </HStack>
           {
             isDesktop
-            && (<Flex
+            && (<HStack
               justify="space-evenly"
               alignItems="center"
+              spacing="10"
             >
               <Search/>
               <CartDrawer/>
-            </Flex>)
+              {
+                username
+                  ? (<Menu>
+                    <MenuButton
+                      color="black"
+                      bg="white"
+                      borderRadius="md"
+                    >
+                      Hola {username}
+                    </MenuButton>
+                    <MenuList>
+                      <MenuItem
+                        onClick={onClickLogOut}
+                      >
+                        Cerrar sesión
+                      </MenuItem>
+                    </MenuList>
+                  </Menu>)
+                  : (<Button
+                    onClick={() => router.push("/auth/login")}
+                    colorScheme={"blackAlpha"}
+                  >
+                    Iniciar sesión
+                  </Button>)
+              }
+            </HStack>)
           }
         </Box>
       </Flex>

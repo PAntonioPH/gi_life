@@ -1,4 +1,4 @@
-import {Box, Button, Center, Checkbox, Container, FormControl, FormLabel, Heading, HStack, Input, InputGroup, Stack, useToast,} from '@chakra-ui/react'
+import {Box, Button, Center, Checkbox, Container, FormControl, FormLabel, Heading, Input, InputGroup, Stack, useToast, Text, VStack, Divider} from '@chakra-ui/react'
 import {Logo} from "@/components/Logo";
 import {ChangeEvent, FormEvent, useEffect, useState} from "react";
 import axios from "axios";
@@ -38,13 +38,19 @@ const Login = () => {
     setIsLoading(true)
 
     axios.post("/api/v1/auth", form, {headers: {Authorization: `${process.env.NEXT_PUBLIC_TOKEN_WEB}`}})
-      .then(async (response) => {
+      .then(async (res) => {
         toast({
-          title: response.data.message,
+          title: res.data.message,
           position: "top-right",
           status: "success",
           isClosable: true,
         })
+
+        Cookies.set('user', JSON.stringify({
+          id: res.data.response.id,
+          username: res.data.response.username,
+          id_rol: res.data.response.id_rol,
+        }));
 
         await router.push("/admin/dashboard")
       })
@@ -62,7 +68,7 @@ const Login = () => {
   return (
     <>
       <Head>
-        <title>Login</title>
+        <title>Iniciar sesión</title>
         <link rel="shortcut icon" href="/assets/icons/favicon.ico"/>
 
         <meta property="og:title" content="GI Life"/>
@@ -127,15 +133,46 @@ const Login = () => {
                     </InputGroup>
                   </FormControl>
                 </Stack>
-                <HStack justify="space-between">
-                  <Checkbox colorScheme={"red"} defaultChecked>Remember me</Checkbox>
-                </HStack>
+                <VStack
+                  spacing={5}
+                >
+                  <Checkbox
+                    colorScheme={"red"}
+                    defaultChecked
+                  >
+                    Recordarme
+                  </Checkbox>
+
+                  <Text
+                    _hover={{
+                      cursor: "pointer",
+                      textDecoration: "underline",
+                    }}
+                    onClick={() => router.push("/auth/forgot")}
+                  >
+                    ¿Olvidaste tu contraseña?
+                  </Text>
+
+                  <Divider borderColor="black" borderWidth="1px" w={"50%"} mx={"auto"}/>
+
+                  <Text
+                    _hover={{
+                      cursor: "pointer",
+                      textDecoration: "underline",
+                    }}
+                    onClick={() => router.push("/auth/register")}
+                  >
+                    ¿No tienes cuenta?
+                  </Text>
+                </VStack>
                 <Stack spacing="6">
                   <Button
                     type={"submit"}
                     colorScheme={"blue"}
                     isLoading={isLoading}
-                  >Sign in</Button>
+                  >
+                    Iniciar sesión
+                  </Button>
                 </Stack>
               </Stack>
             </form>

@@ -46,7 +46,6 @@ export const CartDrawer = () => {
         Open
       </Button>
 
-
       <Drawer
         isOpen={isOpen}
         placement='left'

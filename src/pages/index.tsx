@@ -27,7 +27,6 @@ const Index = () => {
       })
       .then(res => {
         setData(res.data.response)
-        console.log(res.data.response)
       })
       .finally(() => setIsLoading(false))
   }, [])

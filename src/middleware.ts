@@ -30,12 +30,14 @@ export const middleware = async (req: NextRequest) => {
 
     let tempPagesSidebar: any[] = [];
 
+    if (payload.id_rol === 3) return NextResponse.redirect(new URL("/", req.url));
+
     switch (payload.id_rol) {
       case 1:
         tempPagesSidebar = pagesSidebar.filter((page) => page.admin)
         break;
       case 2:
-        tempPagesSidebar = pagesSidebar.filter((page) => page.editor)
+        tempPagesSidebar = pagesSidebar.filter((page) => page.staff)
         break;
     }
 

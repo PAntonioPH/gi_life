@@ -42,14 +42,14 @@ const auth = async (req: NextApiRequest, res: NextApiResponse) => {
 
         const {username, password} = body
 
-        response = await conn.query(`Select username, id, id_rol
+        response = await conn.query(`Select username, id, id_rol, email
                                      From users
                                      Where username = '${validate_login(username)}'
                                        AND PGP_SYM_DECRYPT(password::bytea, 'AES_KEY') = '${validate_login(password)}'
                                        And active = true;`)
 
         if (response.rows.length > 0 && response.rows[0].username === username && NEXT_PUBLIC_SECRET) {
-          const {username, id, id_rol} = response.rows[0]
+          const {username, id, id_rol, email} = response.rows[0]
 
           const token = sign(
             {
@@ -57,6 +57,7 @@ const auth = async (req: NextApiRequest, res: NextApiResponse) => {
               username,
               id,
               id_rol,
+              email
             },
             NEXT_PUBLIC_SECRET
           );
@@ -71,7 +72,7 @@ const auth = async (req: NextApiRequest, res: NextApiResponse) => {
 
           res.setHeader("Set-Cookie", serialized);
 
-          return res.status(200).json(message("Inicio de sesión exitoso", {token, username, id, id_rol}))
+          return res.status(200).json(message("Inicio de sesión exitoso", {token, username, id, id_rol, email}))
         }
 
         return res.status(401).json(message("Usuario o contraseña no valido"))

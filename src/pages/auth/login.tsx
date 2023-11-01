@@ -50,6 +50,7 @@ const Login = () => {
           id: res.data.response.id,
           username: res.data.response.username,
           id_rol: res.data.response.id_rol,
+          email: res.data.response.email,
         }));
 
         await router.push("/admin/dashboard")

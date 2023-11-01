@@ -18,9 +18,9 @@ const profile = async (req: NextApiRequest, res: NextApiResponse) => {
 
       if (!tokenAuth || !NEXT_PUBLIC_SECRET) return res.status(401).json(message("Error, no hay sesión"));
 
-      const {username, id, id_rol} = jwt.verify(tokenAuth, NEXT_PUBLIC_SECRET) as JwtPayload;
+      const {username, id, id_rol, email} = jwt.verify(tokenAuth, NEXT_PUBLIC_SECRET) as JwtPayload;
 
-      response = await conn.query(`Select username, id, id_rol
+      response = await conn.query(`Select username, id, id_rol, email
                                    From users
                                    Where username = '${validate_login(username)}'
                                      And id = '${id}'
@@ -41,7 +41,7 @@ const profile = async (req: NextApiRequest, res: NextApiResponse) => {
         return res.status(401).json(message("Error, Usuario no consultado"));
       }
 
-      return res.status(200).json(message("Usuario consultado", {username, id, id_rol,}));
+      return res.status(200).json(message("Usuario consultado", {username, id, id_rol, email}));
     case "POST":
       const keys_required = ["token"]
       const validation = await validar_llaves(keys_required, body)
@@ -53,7 +53,7 @@ const profile = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         session = jwt.verify(token, NEXT_PUBLIC_SECRET) as JwtPayload;
 
-        response = await conn.query(`Select username, id, id_rol
+        response = await conn.query(`Select username, id, id_rol, email
                                      From users
                                      Where username = '${validate_login(session.username)}'
                                        And id = '${session.id}'

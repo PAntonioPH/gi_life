@@ -1,4 +1,4 @@
-import {Box, Text, HStack, IconButton, Image, Flex, Badge, Heading} from '@chakra-ui/react';
+import {Box, Text, HStack, IconButton, Image, Flex, Badge} from '@chakra-ui/react';
 import {motion, AnimatePresence} from 'framer-motion';
 import {useState, useEffect} from 'react';
 import {Product} from "@/interfaces/Product";

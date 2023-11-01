@@ -17,6 +17,7 @@ interface User {
   id: number;
   username: string;
   id_rol: number;
+  email: string;
 }
 
 export function Sidebar(props: Props) {
@@ -33,6 +34,7 @@ export function Sidebar(props: Props) {
     id: 0,
     username: "",
     id_rol: 0,
+    email: "",
   });
 
   const [loading, setLoading] = useState(true);

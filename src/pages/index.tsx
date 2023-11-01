@@ -5,7 +5,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import process from "process";
 import {LoadingPage} from "@/components/LoadingPage";
-import {Badge, Box, Heading} from "@chakra-ui/react";
+import {Box, Heading} from "@chakra-ui/react";
 import {SliderMultiple} from "@/components/SliderMultiple";
 
 interface ResponsePost {

@@ -29,10 +29,15 @@ export const CartList = () => {
               />
 
               <Text
-                fontSize="lg"
                 fontWeight="bold"
               >
-                {item.name}
+                {
+                  item.name.substring(0, 40)
+                }
+                {
+                  item.name.length > 30
+                  && "..."
+                }
               </Text>
 
               <HStack

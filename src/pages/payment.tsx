@@ -1,14 +1,14 @@
 import {Layout} from "@/components/Layout/Layout";
 import {Box, Button, Flex, Text} from "@chakra-ui/react";
-import {CartList} from "@/components/Cart/CartList";
 import {useCart} from "@/hooks/useCart";
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import Cookies from "js-cookie";
+import {PaymentForm} from "@/components/Payment/PaymentForm";
 
-const Cart = () => {
+const Payment = () => {
   const router = useRouter()
-  const {total, cart} = useCart()
+  const {cart} = useCart()
 
   const [username, setUsername] = useState<string | null>("")
 
@@ -19,8 +19,7 @@ const Cart = () => {
     if (user) setUsername(user.username)
   }, [])
 
-
-  return (<Layout title="Carro de compras">
+  return (<Layout title="Pago">
     {
       username
         ? (<Flex
@@ -29,11 +28,10 @@ const Cart = () => {
           justifyContent={"space-between"}
         >
           <Box>
-            <CartList/>
-
             {
-              cart.length === 0
-              && (<Flex
+              cart.length > 0
+                ? (<PaymentForm/>)
+                : (<Flex
                 justifyContent="center"
                 alignItems="center"
                 direction="column"
@@ -57,30 +55,6 @@ const Cart = () => {
               </Flex>)
             }
           </Box>
-
-          {
-            cart.length > 0
-            && (<Flex
-              direction="column"
-              alignItems="end"
-            >
-              <Text
-                fontSize="2xl"
-                fontWeight="bold"
-                mt={5}
-              >
-                Total: $ {total}
-              </Text>
-
-              <Button
-                colorScheme="red"
-                mt={5}
-                onClick={() => router.push("/payment")}
-              >
-                Pagar
-              </Button>
-            </Flex>)
-          }
         </Flex>)
         : (<Flex
           justifyContent="center"
@@ -93,7 +67,7 @@ const Cart = () => {
             fontWeight="bold"
             mt={5}
           >
-            Debes iniciar sesión para ver el carro
+            Debes iniciar sesión para ver el pago
           </Text>
 
           <Button
@@ -108,4 +82,4 @@ const Cart = () => {
   </Layout>)
 }
 
-export default Cart;
+export default Payment;

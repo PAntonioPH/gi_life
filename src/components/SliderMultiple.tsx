@@ -1,6 +1,6 @@
-import {Box, Text, HStack, IconButton, Image, Flex, Badge} from '@chakra-ui/react';
+import {Box, Text, HStack, IconButton, Image, Badge, VStack} from '@chakra-ui/react';
 import {motion, AnimatePresence} from 'framer-motion';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import {Product} from "@/interfaces/Product";
 import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -57,14 +57,22 @@ export const SliderMultiple = ({products, url}: Props) => {
             transition={{duration: 0.5}}
             w="100%"
             h="480px"
-            boxShadow={"lg"}
+            border={"1px solid #e2e8f0"}
             cursor={"pointer"}
             onClick={() => handleClick(item.id, url)}
             bg={"white"}
             borderRadius={"lg"}
+            _hover={{
+              bg: "blackAlpha.200",
+            }}
+            p={2}
           >
-            <Flex
+            <VStack
+              spacing={3}
               direction={"column"}
+              alignItems={"center"}
+              justifyContent={"center"}
+              h={"100%"}
             >
               <Image
                 src={item.images[0] || '/assets/images/placeholderImg.jpg'}
@@ -75,7 +83,7 @@ export const SliderMultiple = ({products, url}: Props) => {
                 borderRadius={"lg"}
               />
               <Text
-                fontSize={"xl"}
+                fontSize={"lg"}
                 as={"b"}
                 textAlign={"justify"}
                 px={5}
@@ -90,13 +98,11 @@ export const SliderMultiple = ({products, url}: Props) => {
                 }
               </Text>
 
-              <HStack>
+              <HStack
+                spacing={10}
+              >
                 <Text
-                  borderRadius={"lg"}
-                  boxShadow={item.discount > 0 ? 'none' : "outline"}
-                  mx={5}
-                  my={2}
-                  fontSize={"lg"}
+                  fontSize={"md"}
                   as={item.discount > 0 ? 'del' : "span"}
                   color={item.discount > 0 ? "red" : "#00a650"}
                 >
@@ -106,45 +112,25 @@ export const SliderMultiple = ({products, url}: Props) => {
                 {
                   item.discount > 0
                   && (<Text
-                    px={5}
-                    borderRadius={"lg"}
                     color={"#00a650"}
-                    fontSize={"lg"}
-                    boxShadow={item.discount > 0 ? 'outline' : "none"}
+                    fontSize={"md"}
                   >
                     ${(item.price - (item.price * item.discount) / 100).toLocaleString("es-MX", {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                   </Text>)
                 }
               </HStack>
+
               {
                 item.discount > 0
-                && (<Flex
-                  direction={"row"}
-                  alignItems={"center"}
-                  px={5}
-                  my={3}
-                >
-                  <Badge
-                    borderRadius='lg'
-                    px='2'
-                    py={2}
-                    colorScheme='teal'
-                    color={"blackAlpha.700"}>
-                    Descuento:
-                  </Badge>
-                  <Text
-                    as={"b"}
-                    mx={2}
-                    fontSize={"lg"}
-                    color={"darkred"}
-                  >
-                    {item.discount}%
-                  </Text>
-                </Flex>)
+                && (<Badge
+                  borderRadius='md'
+                  p={2}
+                  colorScheme='teal'
+                  color={"blackAlpha.700"}>
+                  Descuento: {item.discount}%
+                </Badge>)
               }
-
-            </Flex>
-
+            </VStack>
           </MotionBox>
         ))}
       </AnimatePresence>

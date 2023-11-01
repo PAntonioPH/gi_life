@@ -1,7 +1,7 @@
 import {useRouter} from "next/router";
 import {Layout} from "@/components/Layout/Layout";
 import {useEffect, useState} from "react";
-import {Badge, Flex, Heading, HStack, Image, SimpleGrid, Text} from "@chakra-ui/react";
+import {Badge, Flex, Heading, HStack, Image, SimpleGrid, Text, VStack} from "@chakra-ui/react";
 import {Product} from "@/interfaces/Product";
 import axios from "axios";
 import {Pagination} from "@/components/Pagination";
@@ -54,11 +54,15 @@ const Category = () => {
                       key={id}
                       boxShadow={"lg"}
                       borderRadius={"lg"}
+                      cursor={"pointer"}
+                      _hover={{
+                        bg: "blackAlpha.200",
+                      }}
+                      p={2}
                     >
                       <Image
                         src={images[0] && images[0] != "" ? images[0] : "/assets/images/placeholderImg.jpg"}
                         alt={"Producto"}
-                        cursor={"pointer"}
                         onClick={() => handleClick(id)}
                         borderRadius={"lg"}
                         h={"300px"}
@@ -66,69 +70,54 @@ const Category = () => {
                         objectFit={"cover"}
                       />
 
-                      <Heading
-                        px={5}
-                        my={2}
-                        size={"md"}
-                        textAlign={"justify"}
+                      <VStack
+                        spacing={3}
+                        mt={2}
                       >
-                        {
-                          name.slice(0, 85)
-                        }
-                        {
-                          name.length > 85
-                          && "..."
-                        }
-                      </Heading>
-
-                      {
-                        discount > 0
-                        && (<Flex
-                          direction={"row"}
-                          alignItems={"center"}
-                          px={5}
-                          my={2}
+                        <Heading
+                          size={"md"}
+                          textAlign={"justify"}
                         >
-                          <Badge
+                          {
+                            name.slice(0, 40)
+                          }
+                          {
+                            name.length > 40
+                            && "..."
+                          }
+                        </Heading>
+
+                        {
+                          discount > 0
+                          && (<Badge
                             borderRadius='lg'
                             px='2'
                             py={2}
                             colorScheme='teal'>
-                            Descuento:
-                          </Badge>
-                          <Text
-                            as={"b"}
-                            mx={2}
-                            fontSize={"lg"}
-                            color={"#ff7300"}
-                          >
-                            {discount}%
-                          </Text>
-                        </Flex>)
-                      }
-
-                      <HStack>
-
-                        <Text
-                          px={5}
-                          my={2}
-                          fontSize={"lg"}
-                          as={discount > 0 ? 'del' : "span"}
-                          color={discount > 0 ? 'red' : "black"}
-                        >
-                          $ {price.toLocaleString("es-MX", {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                        </Text>
-
-                        {
-                          discount > 0
-                          && (<Text
-                            color={"#00a650"}
-                            fontSize={"lg"}
-                          >
-                            $ {(price - (price * discount) / 100).toLocaleString("es-MX", {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                          </Text>)
+                            Descuento: {discount}%
+                          </Badge>)
                         }
-                      </HStack>
+
+                        <HStack>
+                          <Text
+                            fontSize={"md"}
+                            as={discount > 0 ? 'del' : "span"}
+                            color={discount > 0 ? 'red' : "black"}
+                          >
+                            $ {price.toLocaleString("es-MX", {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                          </Text>
+
+                          {
+                            discount > 0
+                            && (<Text
+                              color={"#00a650"}
+                              fontSize={"md"}
+                            >
+                              $ {(price - (price * discount) / 100).toLocaleString("es-MX", {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                            </Text>)
+                          }
+                        </HStack>
+                      </VStack>
                     </Flex>
                   ))
                 }

@@ -38,6 +38,7 @@ export const Layout = (props: Props) => {
             role="main"
             direction="column"
             flex="1"
+            bg={"white"}
             w={{base: "100%", md: "70%"}}
             {...props}
           >

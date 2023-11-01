@@ -14,7 +14,6 @@ interface Props {
 }
 
 const Item = ({product}: Props) => {
-  console.log(product)
   const router = useRouter();
   const {addProduct} = useCart()
 
@@ -68,45 +67,27 @@ const Item = ({product}: Props) => {
             <Heading
               size={"lg"}
               textAlign={"justify"}
-              px={5}
+              pb={5}
             >
               {product.name}
             </Heading>
 
             {
               product.discount > 0
-              && (<Flex
-                direction={"row"}
-                alignItems={"center"}
-                px={5}
-                my={2}
-              >
-                <Badge
+              && (<Badge
                   borderRadius='lg'
-                  px='2'
-                  py={2}
+                  p={2}
                   colorScheme='teal'
                   color={"blackAlpha.700"}>
-                  Descuento:
-                </Badge>
-                <Text
-                  as={"b"}
-                  mx={2}
-                  fontSize={"lg"}
-                  color={"darkred"}
-                >
-                  {product.discount}%
-                </Text>
-              </Flex>)
+                  Descuento: {product.discount}%
+                </Badge>)
             }
 
-            <HStack>
+            <HStack
+              spacing={10}
+            >
               <Text
-                borderRadius={"lg"}
-                boxShadow={product.discount > 0 ? 'none' : "outline"}
-                px={5}
-                my={2}
-                fontSize={"lg"}
+                fontSize={"md"}
                 as={product.discount > 0 ? 'del' : "span"}
                 color={product.discount > 0 ? "red" : "#00a650"}
               >
@@ -116,21 +97,17 @@ const Item = ({product}: Props) => {
               {
                 product.discount > 0
                 && (<Text
-                  px={5}
-                  borderRadius={"lg"}
                   color={"#00a650"}
-                  fontSize={"lg"}
-                  boxShadow={product.discount > 0 ? 'outline' : "none"}
+                  fontSize={"md"}
                 >
                   ${(product.price - (product.price * product.discount) / 100).toLocaleString("es-MX", {minimumFractionDigits: 2, maximumFractionDigits: 2})}
                 </Text>)
               }
             </HStack>
             <Text
-              borderRadius={"lg"}
-              boxShadow={"lg"}
               py={5}
               px={5}
+              fontSize={"md"}
             >
               Disponibles: {product.stock}
             </Text>
@@ -147,6 +124,8 @@ const Item = ({product}: Props) => {
               <Button
                 onClick={() => addProduct(product)}
                 leftIcon={<FontAwesomeIcon icon={faCartShopping}/>}
+                bg={"#c53030"}
+                color={"white"}
                 _hover={{
                   bg: "#c53030",
                   color: "white"
@@ -159,6 +138,8 @@ const Item = ({product}: Props) => {
               <Button
                 onClick={() => handleBuyNow(product)}
                 rightIcon={<FontAwesomeIcon icon={faCashRegister}/>}
+                bg={"#00a650"}
+                color={"white"}
                 _hover={{
                   bg: "#00a650",
                   color: "white"

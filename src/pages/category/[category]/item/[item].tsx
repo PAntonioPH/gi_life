@@ -14,9 +14,9 @@ interface Props {
 }
 
 const Item = ({product}: Props) => {
+  console.log(product)
   const router = useRouter();
   const {addProduct} = useCart()
-  console.log(product)
 
   const handleBuyNow = async (product: any) => {
     addProduct(product)
@@ -25,10 +25,10 @@ const Item = ({product}: Props) => {
 
   return (<>
       <Head>
-        <title>{product.title}</title>
+        <title>{product.name} | GI Life</title>
 
         <link rel="shortcut icon" href="/assets/icons/favicon.ico"/>
-        <meta property="og:title" content={product.title}/>
+        <meta property="og:title" content={product.name}/>
         <meta property="og:type" content="article"/>
         <meta property="og:description" content="Gi Life"/>
         <meta property="og:image:width" content="600"/>

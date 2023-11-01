@@ -33,7 +33,7 @@ const Category = () => {
 
   return (
     <Layout
-      title={typeof category === "string" ? `${category[0].toUpperCase()}${category.slice(1, category.length)}` : "category"}
+      title={typeof category === "string" ? `${category[0].toUpperCase()}${category.slice(1, category.length)} | GI Life` : "category | GI Life"}
     >
       {
         loading

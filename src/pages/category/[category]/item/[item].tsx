@@ -33,7 +33,7 @@ const Item = ({product}: Props) => {
         <meta property="og:description" content="Gi Life"/>
         <meta property="og:image:width" content="600"/>
         <meta property="og:image:height" content="314"/>
-        <meta property="og:image" content={product.img ? product.img : "https://gilife.com.mx//assets/icons/logo.png"}/>
+        <meta property="og:image" content={product.images[0] ? product.images[0] : "https://gilife.com.mx/assets/icons/logo.png"}/>
         <meta property="og:image:type" content="image/jpeg"/>
         <meta property="og:image:type" content="image/png"/>
       </Head>

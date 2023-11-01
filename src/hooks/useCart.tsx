@@ -116,7 +116,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({children}) => {
     setCart([]);
   };
 
-  const total = cart.reduce((a, b) => a + (b.price * b.count), 0).toLocaleString("es-MX", {minimumFractionDigits: 2, maximumFractionDigits: 2});
+  const total = cart.reduce((a, b) => a + (b.price * b.count) * (1 - b.discount / 100), 0).toLocaleString("es-MX", {minimumFractionDigits: 2,maximumFractionDigits: 2});
 
   return (
     <CartContext.Provider value={{cart, addProduct, removeProduct, clearCart, total, setCount, deleteProduct}}>

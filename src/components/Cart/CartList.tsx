@@ -71,14 +71,14 @@ export const CartList = () => {
               </HStack>
 
               <Text>
-                $ {item.price.toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                $ {(item.price - (item.price * (item.discount / 100))).toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2})} c/u
               </Text>
 
             </Stack>
 
             <HStack>
               <Text>
-                $ {(item.price * item.count).toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+                $ {((item.price * item.count) - ((item.price * item.count) * (item.discount / 100))).toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2})}
               </Text>
 
               <IconButton

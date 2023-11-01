@@ -1,6 +1,7 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {message, validar_llaves} from "@/utils/functions";
+import {message, validar_llaves, validate_cookie} from "@/utils/functions";
 import Stripe from 'stripe';
+import {conn} from "@/utils/database";
 
 const {NEXT_PUBLIC_STRIPE_SECRET_KEY} = process.env
 
@@ -14,20 +15,30 @@ const create_payment_intent = async (req: NextApiRequest, res: NextApiResponse) 
   switch (method) {
     case "POST":
       try {
-        const keys_required = ["customer_name", "customer_email", "amount", "cart"]
+        const {email, username} = await validate_cookie(req, "tokenAuth")
+
+        const keys_required = ["cart"]
         const validation = await validar_llaves(keys_required, body)
 
         if (!validation.success) return res.status(500).json(message(validation.message))
 
-        const {amount, customer_email, customer_name} = body
+        const {cart} = body
+
+        const responseCart = await conn.query(`SELECT id, price, discount
+                                               FROM product
+                                               WHERE id IN (${cart.map((item: any) => `'${item.id}'`).join(",")});`)
+
+        responseCart.rows.forEach((item: any) => item.quantity = cart.find((cartItem: any) => cartItem.id === item.id).count)
+
+        const amount = responseCart.rows.reduce((a: any, b: any) => a + (b.price * b.quantity) * (1 - b.discount / 100), 0);
 
         const customer = await stripe.customers.create({
-          name: customer_name,
-          email: customer_email,
+          name: username as string,
+          email: email as string,
         });
 
         const params: Stripe.PaymentIntentCreateParams = {
-          amount: parseInt(amount)*100,
+          amount: parseInt(amount) * 100,
           currency: 'MXN',
           automatic_payment_methods: {
             enabled: true,

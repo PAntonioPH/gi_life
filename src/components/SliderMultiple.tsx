@@ -1,4 +1,4 @@
-import {Box, Text, HStack, IconButton, Image, Badge, VStack} from '@chakra-ui/react';
+import {Box, Text, HStack, IconButton, Image, Badge, VStack, Heading} from '@chakra-ui/react';
 import {motion, AnimatePresence} from 'framer-motion';
 import {useState, useEffect} from 'react';
 import {Product} from "@/interfaces/Product";
@@ -13,22 +13,102 @@ interface Props {
 
 const MotionBox = motion(Box);
 
+const itemSlider = ({images, id, name, discount, price}: Product, url: string, handleClick: (id: number, category: string) => Promise<boolean>) => (
+  <MotionBox
+    key={id}
+    initial={{opacity: 0, x: 1000}}
+    animate={{opacity: 1, x: 0}}
+    color={"black"}
+    w="100%"
+    h={"500px"}
+    bgSize="cover"
+    bgPosition="center"
+    bgRepeat="no-repeat"
+    borderRadius={"lg"}
+    cursor={"pointer"}
+    _hover={{
+      bg: "blackAlpha.200",
+    }}
+    p={5}
+    border={"1px solid #e2e8f0"}
+    onClick={() => handleClick(id, url)}
+  >
+    <Image
+      src={images[0] && images[0] != "" ? images[0] : "/assets/images/placeholderImg.jpg"}
+      alt={"Producto"}
+      borderRadius={"lg"}
+      h={"300px"}
+      w={"450px"}
+      objectFit={"cover"}
+    />
+
+    <VStack
+      spacing={3}
+      mt={2}
+    >
+      <Heading
+        size={"md"}
+        textAlign={"justify"}
+      >
+        {
+          name.slice(0, 40)
+        }
+        {
+          name.length > 40
+          && "..."
+        }
+      </Heading>
+
+      {
+        discount > 0
+        && (<Badge
+          borderRadius='lg'
+          px='2'
+          py={2}
+          colorScheme='teal'>
+          {discount}% OFF
+        </Badge>)
+      }
+
+      <HStack>
+        <Text
+          fontSize={"md"}
+          as={discount > 0 ? 'del' : "span"}
+          color={discount > 0 ? 'red' : "black"}
+        >
+          $ {price.toLocaleString("es-MX", {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+        </Text>
+
+        {
+          discount > 0
+          && (<Text
+            color={"#00a650"}
+            fontSize={"md"}
+          >
+            $ {(price - (price * discount) / 100).toLocaleString("es-MX", {minimumFractionDigits: 2, maximumFractionDigits: 2})}
+          </Text>)
+        }
+      </HStack>
+    </VStack>
+  </MotionBox>
+)
+
 export const SliderMultiple = ({products, url}: Props) => {
-  const steps = 4;
+  const steps = 3;
   const router = useRouter();
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrent((prev) => ((prev + steps) % products.length));
-    }, 4000);
+      setCurrent((prev) => ((prev >= products.length - 1) ? 0 : prev + 1));
+    }, 3000);
 
     return () => clearInterval(interval);
-  }, [products.length]);
+  }, [steps, products.length]);
 
-  const handlePrevImage = () => (current === 0) ? setCurrent(0) : setCurrent((prev) => prev - steps);
+  const handlePrevImage = () => (current <= 0) ? setCurrent(products.length - 1) : setCurrent((prev) => prev - 1);
 
-  const handleNextImage = () => (current + steps >= products.length) ? setCurrent(0) : setCurrent((prev) => prev + steps);
+  const handleNextImage = () => (current >= products.length - 1) ? setCurrent(0) : setCurrent((prev) => prev + 1);
 
   const handleClick = async (id: number, category: string) => await router.push(`/category/${category}/item/${id}`)
 
@@ -45,94 +125,17 @@ export const SliderMultiple = ({products, url}: Props) => {
         aria-label="Previous Image"
         icon={<FontAwesomeIcon icon={faChevronLeft}/>}
         onClick={handlePrevImage}
-        variant="outline"
+        variant="ghost"
       />
 
       <AnimatePresence>
-        {products.slice(current, current + steps).map((item) => (
-          <MotionBox
-            key={item.id}
-            initial={{opacity: 0, x: 50}}
-            animate={{opacity: 1, x: 0}}
-            transition={{duration: 0.5}}
-            w="100%"
-            h="480px"
-            border={"1px solid #e2e8f0"}
-            cursor={"pointer"}
-            onClick={() => handleClick(item.id, url)}
-            bg={"white"}
-            borderRadius={"lg"}
-            _hover={{
-              bg: "blackAlpha.200",
-            }}
-            p={2}
-          >
-            <VStack
-              spacing={3}
-              direction={"column"}
-              alignItems={"center"}
-              justifyContent={"center"}
-              h={"100%"}
-            >
-              <Image
-                src={item.images[0] || '/assets/images/placeholderImg.jpg'}
-                alt={"products"}
-                objectFit={"cover"}
-                w={"350px"}
-                h={"300px"}
-                borderRadius={"lg"}
-              />
-              <Text
-                fontSize={"lg"}
-                as={"b"}
-                textAlign={"justify"}
-                px={5}
-                my={2}
-              >
-                {
-                  item.name.slice(0, 38)
-                }
-                {
-                  item.name.length > 38
-                  && "..."
-                }
-              </Text>
+        {
+          products.slice(current, current + steps).map((product) => (itemSlider(product, url, handleClick)))
+        }
 
-              <HStack
-                spacing={10}
-              >
-                <Text
-                  fontSize={"md"}
-                  as={item.discount > 0 ? 'del' : "span"}
-                  color={item.discount > 0 ? "red" : "#00a650"}
-                >
-                  ${(item.price).toLocaleString("es-MX", {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                </Text>
-
-                {
-                  item.discount > 0
-                  && (<Text
-                    color={"#00a650"}
-                    fontSize={"md"}
-                  >
-                    ${(item.price - (item.price * item.discount) / 100).toLocaleString("es-MX", {minimumFractionDigits: 2, maximumFractionDigits: 2})}
-                  </Text>)
-                }
-              </HStack>
-
-              {
-                item.discount > 0
-                && (<Badge
-                  borderRadius='md'
-                  p={2}
-                  colorScheme='teal'
-                  color={"blackAlpha.700"}>
-                  Descuento: {item.discount}%
-                </Badge>)
-              }
-            </VStack>
-          </MotionBox>
-        ))}
+        {
+          3 - products.slice(current, current + steps).length > 0 && products.slice(0, 3 - products.slice(current, current + steps).length).map((product) => (itemSlider(product, url, handleClick)))
+        }
       </AnimatePresence>
 
       {/* Right Button */}
@@ -140,7 +143,7 @@ export const SliderMultiple = ({products, url}: Props) => {
         aria-label="Next Image"
         icon={<FontAwesomeIcon icon={faChevronRight}/>}
         onClick={handleNextImage}
-        variant="outline"
+        variant="ghost"
       />
     </HStack>
   );

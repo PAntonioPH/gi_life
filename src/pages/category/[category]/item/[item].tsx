@@ -65,7 +65,7 @@ const Item = ({product}: Props) => {
             py={5}
           >
             <Heading
-              size={"lg"}
+              size={"md"}
               textAlign={"justify"}
               pb={5}
             >

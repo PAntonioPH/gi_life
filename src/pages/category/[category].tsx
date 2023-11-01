@@ -58,7 +58,7 @@ const Category = () => {
                       _hover={{
                         bg: "blackAlpha.200",
                       }}
-                      p={2}
+                      p={5}
                     >
                       <Image
                         src={images[0] && images[0] != "" ? images[0] : "/assets/images/placeholderImg.jpg"}
@@ -94,7 +94,7 @@ const Category = () => {
                             px='2'
                             py={2}
                             colorScheme='teal'>
-                            Descuento: {discount}%
+                            {discount}% OFF
                           </Badge>)
                         }
 

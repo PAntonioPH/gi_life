@@ -53,16 +53,12 @@ const Index = () => {
                     cursor={"pointer"}
                     _hover={{
                       textDecoration: "underline"
-                      }}
+                    }}
+                    onClick={() => router.push(`/category/${url}`)}
                   >
                     <Heading
                       color={"black"}
                       size={"lg"}
-                      onClick={() => router.push(`/category/${url}`)}
-                      _hover={{
-                        color: "#00347f",
-                        textDecoration: "underline"
-                      }}
                     >
                       {name}
                     </Heading>

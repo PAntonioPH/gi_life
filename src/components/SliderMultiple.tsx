@@ -1,6 +1,6 @@
 import {Box, Text, HStack, IconButton, Image, Badge, VStack} from '@chakra-ui/react';
 import {motion, AnimatePresence} from 'framer-motion';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {Product} from "@/interfaces/Product";
 import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";

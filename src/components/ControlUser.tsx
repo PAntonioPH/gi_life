@@ -43,12 +43,19 @@ export const ControlUser = () => {
           >
             Hola, {username}
           </MenuButton>
-          <MenuList
-            color={"white"}
-          >
+          <MenuList>
+            <MenuItem
+              onClick={() => router.push("/user/shopping")}
+            >
+              Mis compras
+            </MenuItem>
+            <MenuItem
+              onClick={() => router.push("/user/profile")}
+            >
+              Mis datos
+            </MenuItem>
             <MenuItem
               onClick={onClickLogOut}
-              color={"black"}
             >
               Cerrar sesión
             </MenuItem>

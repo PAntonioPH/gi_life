@@ -30,7 +30,7 @@ export const SliderMultiple = ({products, url}: Props) => {
 
   const handleNextImage = () => (current + steps >= products.length) ? setCurrent(0) : setCurrent((prev) => prev + steps);
 
-  const handleClick = async (id: number) => await router.push(`/category/${products}/item/${id}`)
+  const handleClick = async (id: number, category: string) => await router.push(`/category/${category}/item/${id}`)
 
 
   return (
@@ -59,7 +59,7 @@ export const SliderMultiple = ({products, url}: Props) => {
             h="480px"
             boxShadow={"lg"}
             cursor={"pointer"}
-            onClick={() => handleClick(item.id)}
+            onClick={() => handleClick(item.id, url)}
             bg={"white"}
             borderRadius={"lg"}
           >

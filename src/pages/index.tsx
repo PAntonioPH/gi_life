@@ -16,7 +16,6 @@ interface ResponsePost {
 }
 
 const Index = () => {
-
   const [data, setData] = useState<ResponsePost[]>([])
   const [isLoading, setIsLoading] = useState(true)
 

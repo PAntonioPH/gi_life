@@ -1,6 +1,7 @@
 import {Center, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay, Heading, SimpleGrid} from "@chakra-ui/react";
 import {Category} from "@/interfaces/Category";
 import {NavbarItem} from "@/components/Layout/NavbarItem";
+import {ControlUser} from "@/components/ControlUser";
 
 interface Props {
   isOpen: boolean;
@@ -26,7 +27,12 @@ export const NavbarMobile = ({isOpen, onClose, pages, handleClickNav}: Props) =>
             </Heading>
           </Center>
         </DrawerHeader>
-        <DrawerBody>
+        <DrawerBody
+          display={"flex"}
+          flexDirection={"column"}
+          justifyContent={"space-between"}
+          alignItems={"center"}
+        >
           <SimpleGrid
             columns={1}
             spacing={8}
@@ -41,6 +47,8 @@ export const NavbarMobile = ({isOpen, onClose, pages, handleClickNav}: Props) =>
               />
             ))}
           </SimpleGrid>
+
+          <ControlUser/>
         </DrawerBody>
       </DrawerContent>
     </Drawer>

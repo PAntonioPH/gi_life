@@ -1,4 +1,4 @@
-import {Box, Button, Flex, HStack, IconButton, Menu, MenuButton, MenuItem, MenuList, SimpleGrid, useBreakpointValue, useDisclosure} from '@chakra-ui/react'
+import {Box, Flex, HStack, IconButton, SimpleGrid, useBreakpointValue, useDisclosure} from '@chakra-ui/react'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import {faBars} from "@fortawesome/free-solid-svg-icons"
 import {useRouter} from "next/router";
@@ -10,7 +10,7 @@ import {NavbarItem} from "@/components/Layout/NavbarItem";
 import {Logo} from "@/components/Logo";
 import {Search} from "@/components/Layout/Search";
 import {CartDrawer} from "@/components/Cart/CartDrawer";
-import Cookies from "js-cookie";
+import {ControlUser} from "@/components/ControlUser";
 
 export const Navbar = () => {
   const router = useRouter()
@@ -18,27 +18,7 @@ export const Navbar = () => {
   const {isOpen, onOpen, onClose} = useDisclosure()
   const [pages, setPages] = useState<Category[]>([])
 
-  const [username, setUsername] = useState<string | null>("")
-
-  useEffect(() => {
-    let cookie = Cookies.get("user");
-    let user = cookie ? JSON.parse(cookie) : null;
-
-    if (user) setUsername(user.username)
-  }, [])
-
   const handleClickNav = async (url: string) => await router.push(url === "/" ? "/" : `/category${url}`)
-
-  const onClickLogOut = async () => {
-    try {
-      await axios.get("/api/v1/auth", {headers: {Authorization: `${process.env.NEXT_PUBLIC_TOKEN_WEB}`}})
-    } catch (e) {
-      console.log(e)
-    }
-
-    Cookies.remove("user")
-    location.reload();
-  }
 
   useEffect(() => {
     axios.get('/api/v1/categories', {
@@ -60,7 +40,6 @@ export const Navbar = () => {
         justifyContent={"space-evenly"}
         p={5}
         bgGradient="linear(to-b, #9d0f3a, white, white)"
-
       >
         <Logo/>
         <Box
@@ -73,24 +52,26 @@ export const Navbar = () => {
             py={{base: "5", lg: "5"}}
           >
             {isDesktop
-              ? (<Flex
-                justify="center"
-                flex="1"
-                alignItems="center"
-              >
-                <SimpleGrid
-                  columns={7}
-                  spacing={10}
+              ? (<>
+                <Flex
+                  justify="center"
+                  flex="1"
+                  alignItems="center"
                 >
-                  {pages.map((page, index) => (
-                    <NavbarItem
-                      key={index}
-                      category={page}
-                      handleClickNav={handleClickNav}
-                    />
-                  ))}
-                </SimpleGrid>
-              </Flex>)
+                  <SimpleGrid
+                    columns={7}
+                    spacing={10}
+                  >
+                    {pages.map((page, index) => (
+                      <NavbarItem
+                        key={index}
+                        category={page}
+                        handleClickNav={handleClickNav}
+                      />
+                    ))}
+                  </SimpleGrid>
+                </Flex>
+              </>)
               : (<IconButton
                 variant="ghost"
                 icon={<FontAwesomeIcon icon={faBars}/>}
@@ -108,31 +89,7 @@ export const Navbar = () => {
             >
               <Search/>
               <CartDrawer/>
-              {
-                username
-                  ? (<Menu>
-                    <MenuButton
-                      color="black"
-                      bg="white"
-                      borderRadius="md"
-                    >
-                      Hola {username}
-                    </MenuButton>
-                    <MenuList>
-                      <MenuItem
-                        onClick={onClickLogOut}
-                      >
-                        Cerrar sesión
-                      </MenuItem>
-                    </MenuList>
-                  </Menu>)
-                  : (<Button
-                    onClick={() => router.push("/auth/login")}
-                    colorScheme={"blackAlpha"}
-                  >
-                    Iniciar sesión
-                  </Button>)
-              }
+              <ControlUser/>
             </HStack>)
           }
         </Box>

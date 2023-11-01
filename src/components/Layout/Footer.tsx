@@ -25,23 +25,12 @@ export const Footer = (props: BoxProps) => {
     {
       name: "Facebook",
       icon: <FontAwesomeIcon fontSize="2rem" icon={faFacebook}/>,
-      url: "https://www.facebook.com/LaOpiniondeHidalgo/"
-    },
-    {
-      name: "Instagram",
-      icon: <FontAwesomeIcon fontSize="2rem" icon={faInstagram}/>,
-      url: "https://www.instagram.com/laopinionhidalgo1/"
-    },
-    {
-      name: "Twitter",
-      icon: <FontAwesomeIcon fontSize="2rem" icon={faTwitter}/>,
-      url: "https://twitter.com/LaopinionHidalg"
+      url: "https://www.facebook.com/GiLife"
     },
   ]
 
   return (
-    <Box as="footer" role="contentinfo" px={{base: '8'}} mt={10} bgGradient="linear(to-t, #9d0f3a, white, white)"
-         {...props}>
+    <Box as="footer" role="contentinfo" px={{base: '8'}} mt={10} {...props}>
       <Flex
         py={{base: '12', md: '10'}}
         direction={{base: 'column', md: 'row'}}
@@ -62,7 +51,7 @@ export const Footer = (props: BoxProps) => {
             mt={'8'}
             color={"#6a1834"}
           >
-            Síguenos en nuestras Redes Sociales </Heading>
+            ¡Síguenos en Facebook! </Heading>
           <ButtonGroup variant="ghost" spacing={10}>
             {
               redes.map(({name, url, icon}) => (

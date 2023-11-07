@@ -1,4 +1,4 @@
-import {Box, Text, HStack, IconButton, Image, Badge, VStack, Heading} from '@chakra-ui/react';
+import {Box, Text, HStack, IconButton, Image, Badge, VStack, Heading, useBreakpointValue} from '@chakra-ui/react';
 import {motion, AnimatePresence} from 'framer-motion';
 import {useState, useEffect} from 'react';
 import {Product} from "@/interfaces/Product";
@@ -13,9 +13,9 @@ interface Props {
 
 const MotionBox = motion(Box);
 
-const itemSlider = ({images, id, name, discount, price}: Product, url: string, handleClick: (id: number, category: string) => Promise<boolean>) => (
+const itemSlider = ({images, id, name, discount, price}: Product, url: string, temp: boolean, handleClick: (id: number, category: string) => Promise<boolean>) => (
   <MotionBox
-    key={id}
+    key={`slider-${id}${temp ? "-temp" : ""}`}
     initial={{opacity: 0, x: 1000}}
     animate={{opacity: 1, x: 0}}
     color={"black"}
@@ -94,7 +94,9 @@ const itemSlider = ({images, id, name, discount, price}: Product, url: string, h
 )
 
 export const SliderMultiple = ({products, url}: Props) => {
-  const steps = 3;
+  const isDesktop = useBreakpointValue({base: false, lg: true})
+
+  const steps = isDesktop ? 3 : 1;
   const router = useRouter();
   const [current, setCurrent] = useState(0);
 
@@ -108,7 +110,7 @@ export const SliderMultiple = ({products, url}: Props) => {
 
   const handlePrevImage = () => (current <= 0) ? setCurrent(products.length - 1) : setCurrent((prev) => prev - 1);
 
-  const handleNextImage = () => (current >= products.length - 1) ? setCurrent(0) : setCurrent((prev) => prev + 1);
+  const handleNextImage = () => (current >= products.length - (isDesktop ? 3 : 1)) ? setCurrent(0) : setCurrent((prev) => prev + 1);
 
   const handleClick = async (id: number, category: string) => await router.push(`/category/${category}/item/${id}`)
 
@@ -130,11 +132,11 @@ export const SliderMultiple = ({products, url}: Props) => {
 
       <AnimatePresence>
         {
-          products.slice(current, current + steps).map((product) => (itemSlider(product, url, handleClick)))
+          products.slice(current, current + steps).map((product) => (itemSlider(product, url, false, handleClick)))
         }
 
         {
-          3 - products.slice(current, current + steps).length > 0 && products.slice(0, 3 - products.slice(current, current + steps).length).map((product) => (itemSlider(product, url, handleClick)))
+          (3 - products.slice(current, current + steps).length > 0) && products.slice(0, 1 - products.slice(current, current + steps).length).map((product) => (itemSlider(product, url, true, handleClick)))
         }
       </AnimatePresence>
 

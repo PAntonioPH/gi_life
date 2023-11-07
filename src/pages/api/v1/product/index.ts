@@ -1,5 +1,5 @@
 import {NextApiRequest, NextApiResponse} from "next";
-import {filtrar_llaves, message, validar_llaves, validate_cookie} from "@/utils/functions";
+import {filtrar_llaves, message, validar_llaves} from "@/utils/functions";
 import {uploadFile} from "@/utils/s3";
 import {conn} from "@/utils/database";
 import {query_insert} from "@/utils/postgres";

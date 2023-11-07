@@ -52,7 +52,7 @@ export const ControlUser = () => {
             <MenuItem
               onClick={() => router.push("/user/perfil")}
             >
-              Mis datos
+              Mi perfil
             </MenuItem>
             <MenuItem
               onClick={onClickLogOut}

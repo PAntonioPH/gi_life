@@ -1,7 +1,7 @@
 import {Layout} from "@/components/Layout/Layout";
 
 const Perfil = () => {
-  return (<Layout title={"Mis Compras"}>
+  return (<Layout title={"Perfil"}>
 
   </Layout>)
 }

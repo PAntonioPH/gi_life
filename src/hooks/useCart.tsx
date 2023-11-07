@@ -113,6 +113,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({children}) => {
   }
 
   const clearCart = () => {
+    Cookies.remove('cart');
     setCart([]);
   };
 

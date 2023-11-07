@@ -37,7 +37,7 @@ export const TablePurchase = ({shopping}: Props) => {
     if (shopping) {
       await router.push(`/admin/compras/${id}`)
     } else {
-      await router.push(`/user/shopping/${id}`)
+      await router.push(`/user/compras/${id}`)
     }
   }
 

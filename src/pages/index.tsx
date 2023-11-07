@@ -19,23 +19,23 @@ interface ResponsePost {
 const Index = () => {
   const router = useRouter()
   const [data, setData] = useState<ResponsePost[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    axios.get('api/v1/home',
+    axios.get('/api/v1/home',
       {
         headers: {Authorization: `${process.env.NEXT_PUBLIC_TOKEN_WEB}`}
       })
       .then(res => {
         setData(res.data.response)
       })
-      .finally(() => setIsLoading(false))
+      .finally(() => setLoading(false))
   }, [])
 
   return (
     <Layout title={"GI Life"}>
       {
-        isLoading
+        loading
           ? (<LoadingPage/>)
           : (<>
             <BannerHome/>

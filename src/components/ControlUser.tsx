@@ -45,12 +45,12 @@ export const ControlUser = () => {
           </MenuButton>
           <MenuList>
             <MenuItem
-              onClick={() => router.push("/user/shopping")}
+              onClick={() => router.push("/user/compras")}
             >
               Mis compras
             </MenuItem>
             <MenuItem
-              onClick={() => router.push("/user/profile")}
+              onClick={() => router.push("/user/perfil")}
             >
               Mis datos
             </MenuItem>

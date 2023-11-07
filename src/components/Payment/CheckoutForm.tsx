@@ -43,7 +43,7 @@ export const CheckoutForm = () => {
 
       setIsLoading(false);
     } else if (paymentIntent) {
-      axios.post('api/v1/purchase',
+      axios.post('/api/v1/purchase',
         {
           cart,
           time_zone: Intl.DateTimeFormat().resolvedOptions().timeZone,

@@ -17,9 +17,9 @@ export const pagesSidebar = [
     staff: true,
   },
   {
-    name: 'Ordenes',
+    name: 'Compras',
     icon: <FontAwesomeIcon icon={faBoxesStacked}/>,
-    dir: "/admin/ordenes",
+    dir: "/admin/compras",
     admin: true,
     staff: true,
   },

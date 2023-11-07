@@ -1,9 +1,9 @@
 import {Layout} from "@/components/Layout/Layout";
 
-const Shopping = () => {
+const Perfil = () => {
   return (<Layout title={"Mis Compras"}>
 
   </Layout>)
 }
 
-export default Shopping
+export default Perfil

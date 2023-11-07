@@ -2,6 +2,7 @@ import {NextApiRequest, NextApiResponse} from "next";
 import {filtrar_llaves, message, validar_llaves, validate_cookie} from "@/utils/functions";
 import {conn} from "@/utils/database";
 import {query_insert} from "@/utils/postgres";
+import moment from "moment";
 
 const purchase = async (req: NextApiRequest, res: NextApiResponse) => {
   const {method, body, query} = req
@@ -9,6 +10,31 @@ const purchase = async (req: NextApiRequest, res: NextApiResponse) => {
   let response: any
 
   switch (method) {
+    case "GET":
+      try {
+        const {time_zone, shopping} = query
+        const {id: id_user} = await validate_cookie(req, "tokenAuth")
+
+        if (!time_zone) return res.status(500).json(message("Error, no se recibió la zona horaria"))
+
+        response = await conn.query(`SELECT p.id, p.id_user, p.total, p.date_update, p.time_update, ps.name as status, u.username
+                                     FROM purchase p
+                                              INNER JOIN users u on p.id_user = u.id
+                                              INNER JOIN purchase_status ps on p.id_purchase_status = ps.id
+                                         ${shopping ? `WHERE p.id_user = '${id_user}'` : ""}
+                                     ORDER BY p.id DESC;`)
+
+        if (response.rows.length > 0) {
+          response.rows.forEach((purchase: any) => purchase.total = parseFloat(purchase.total))
+          response.rows.forEach((purchase: any) => purchase.date_update = moment.utc(`${moment(purchase.date_update).format("YYYY-MM-DD")} ${purchase.time_update}`).tz(time_zone as string).format("DD/MM/YYYY"))
+          response.rows.forEach((purchase: any) => purchase.time_update = moment.utc(`${moment(purchase.date_update).format("YYYY-MM-DD")} ${purchase.time_update}`).tz(time_zone as string).format("HH:mm:ss"))
+        }
+
+        return res.status(200).json(message("Compras obtenidas", response.rows))
+      } catch (e) {
+        console.log(e)
+        return res.status(500).json(message("Error, no se pudieron obtener las compras"))
+      }
     case "POST":
       try {
         const {id: id_user} = await validate_cookie(req, "tokenAuth")

@@ -33,10 +33,7 @@ const purchase = async (req: NextApiRequest, res: NextApiResponse) => {
 
         const keys_filter = ["id_user", "purchase", "total", "time_zone", "id_purchase_status", "id_purchase_stripe"]
 
-        console.log(query_insert(await filtrar_llaves(body, keys_filter), "purchase"))
-        response = await conn.query(query_insert(await filtrar_llaves(body, keys_filter), "purchase"))
-
-        console.log(response)
+        response = await conn.query(query_insert(await filtrar_llaves(body, keys_filter), "purchase", true))
 
         return res.status(200).json(message("Compra realizada", response.rows[0]))
       } catch (e) {

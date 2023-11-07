@@ -1,6 +1,7 @@
 import {jwtVerify} from "jose";
 import process from "process";
 import {NextApiRequest} from "next";
+import moment from "moment";
 
 const {NEXT_PUBLIC_SECRET} = process.env
 
@@ -66,17 +67,9 @@ export const filtrar_llaves_multiple = (bodys: Array<object>, keys_filter: Recor
   });
 }
 
-export const get_fecha = () => {
-  const date = new Date()
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`
-}
+export const get_fecha = (parseUtc?: boolean) => parseUtc ? moment().utc().format('YYYY-MM-DD') : moment().format('YYYY-MM-DD')
 
-export const get_hora = () => {
-  return new Date().toLocaleTimeString('es-mx', {
-    hour12: false,
-    timeZone: 'America/Mexico_City',
-  });
-}
+export const get_hora = (parseUtc?: boolean) => parseUtc ? moment().utc().format('HH:mm:ss') : moment().format('HH:mm:ss')
 
 export const validate_login = (validation: string) => {
   const regex = new RegExp("\"", "g");

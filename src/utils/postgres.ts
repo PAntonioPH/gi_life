@@ -1,13 +1,19 @@
 import {get_fecha, get_hora} from "@/utils/functions";
 
-export const query_insert = (body: object, tabla: string) => {
+export const query_insert = (body: object, tabla: string, parseUtc?: boolean) => {
   const llaves_body = Object.keys(body);
   const values_body = Object.values(body).map(value => typeof value === 'string' ? value.replaceAll("'", "''") : value);
 
   llaves_body.push("date_update");
   llaves_body.push("time_update");
-  values_body.push(get_fecha());
-  values_body.push(get_hora());
+
+  if (parseUtc) {
+    values_body.push(get_fecha(true));
+    values_body.push(get_hora(true));
+  } else {
+    values_body.push(get_fecha());
+    values_body.push(get_hora());
+  }
 
   let query = `INSERT into ${tabla} ( `;
   let values = "( ";

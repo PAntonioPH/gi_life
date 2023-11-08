@@ -37,11 +37,13 @@ const NotFound = () => {
       alignItems="center"
       justifyContent="center"
       height="100vh"
+      bgGradient="linear(to-r, #a8b9e8, #e9b0d1, #f7b6c1)"
     >
       <Image
-        width="80%"
+        width="40%"
         src="/assets/images/404NotFound.png"
         alt="logo"
+        mb={10}
       />
       <Center>
         <Button

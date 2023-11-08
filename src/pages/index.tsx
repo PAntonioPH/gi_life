@@ -8,6 +8,7 @@ import {LoadingPage} from "@/components/LoadingPage";
 import {Box, Flex, Heading} from "@chakra-ui/react";
 import {SliderMultiple} from "@/components/SliderMultiple";
 import {useRouter} from "next/router";
+import {motion} from "framer-motion";
 
 interface ResponsePost {
   id: number,

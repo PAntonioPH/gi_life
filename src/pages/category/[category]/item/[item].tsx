@@ -1,13 +1,13 @@
 import Head from "next/head";
 import process from "process";
 import {LayoutProduct} from "@/components/Layout/LayoutProduct";
-import {Badge, Box, Button, Flex, Heading, HStack, SimpleGrid, Text, VStack} from "@chakra-ui/react";
+import {Badge, Box, Button, Flex, Heading, HStack, Stack, Text, VStack} from "@chakra-ui/react";
 import parse from "html-react-parser"
 import {useRouter} from "next/router";
 import {useCart} from "@/hooks/useCart";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartShopping, faCashRegister} from "@fortawesome/free-solid-svg-icons";
-
+import ViewerImages from "@/components/Product/ViewerImages";
 
 interface Props {
   product: any
@@ -39,29 +39,20 @@ const Item = ({product}: Props) => {
 
       <LayoutProduct>
         <Flex
+          boxShadow={"dark-lg"}
+          borderRadius={"lg"}
+          p={5}
+          mt={5}
+          direction={{base: "column", lg: "row"}}
         >
-          <SimpleGrid
-            columns={2}
-            w={"60%"}
-          >
-            <Box
-              bg={"blue"}
-            >
-              hola
-            </Box>
-
-            <Box
-              bg={"yellow"}
-            >
-              hola
-            </Box>
-          </SimpleGrid>
+          <ViewerImages
+            images={product.images}
+          />
 
           <VStack
-            w={"40%"}
+            w={{base: "100%", lg: "40%"}}
             px={5}
             borderRadius={"lg"}
-            boxShadow={"lg"}
             py={5}
           >
             <Heading
@@ -118,8 +109,9 @@ const Item = ({product}: Props) => {
             >
               {parse(product.description)}
             </Box>
-            <HStack
-              spacing={10}
+            <Stack
+              spacing={{base: 2, lg: 5}}
+              direction={{base: "column", lg: "row"}}
             >
               <Button
                 onClick={() => addProduct(product)}
@@ -130,7 +122,6 @@ const Item = ({product}: Props) => {
                   bg: "#c53030",
                   color: "white"
                 }}
-                boxShadow={"md"}
               >
                 Añadir al carrito
               </Button>
@@ -144,11 +135,10 @@ const Item = ({product}: Props) => {
                   bg: "#00a650",
                   color: "white"
                 }}
-                boxShadow={"md"}
               >
                 Comprar Ahora
               </Button>
-            </HStack>
+            </Stack>
           </VStack>
         </Flex>
       </LayoutProduct>

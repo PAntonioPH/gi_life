@@ -30,7 +30,7 @@ export const Footer = (props: BoxProps) => {
   ]
 
   return (
-    <Box as="footer" role="contentinfo" px={{base: '8'}} mt={10} {...props}>
+    <Box as="footer" role="contentinfo" px={{base: '8'}} mt={10} bgGradient="linear(to-r, #a8b9e8, #e9b0d1, #f7b6c1)" {...props}>
       <Flex
         py={{base: '12', md: '10'}}
         direction={{base: 'column', md: 'row'}}

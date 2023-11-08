@@ -26,8 +26,7 @@ const purchase = async (req: NextApiRequest, res: NextApiResponse) => {
 
         if (response.rows.length > 0) {
           response.rows.forEach((purchase: any) => purchase.total = parseFloat(purchase.total))
-          response.rows.forEach((purchase: any) => purchase.date_update = moment.utc(`${moment(purchase.date_update).format("YYYY-MM-DD")} ${purchase.time_update}`).tz(time_zone as string).format("DD/MM/YYYY"))
-          response.rows.forEach((purchase: any) => purchase.time_update = moment.utc(`${moment(purchase.date_update).format("YYYY-MM-DD")} ${purchase.time_update}`).tz(time_zone as string).format("HH:mm:ss"))
+          response.rows.forEach((purchase: any) => purchase.date_time_update = moment.utc(`${moment(purchase.date_update).format("YYYY-MM-DD")} ${purchase.time_update}`).tz(time_zone as string).format("LL, h:mm a"))
         }
 
         return res.status(200).json(message("Compras obtenidas", response.rows))

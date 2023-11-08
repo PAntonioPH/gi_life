@@ -6,4 +6,5 @@ export interface Purchase {
   date_update: string,
   total: number
   username: string
+  date_time_update?: string
 }

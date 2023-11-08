@@ -71,7 +71,7 @@ export const TablePurchase = ({shopping}: Props) => {
                       <Td>{row.id}</Td>
                       <Td>{row.status}</Td>
                       <Td>
-                        {`${row.date_update} ${row.time_update}`}
+                        {`${row.date_time_update}`}
                       </Td>
                       <Td>
                         $ {row.total.toLocaleString("es-MX", {minimumFractionDigits: 2, maximumFractionDigits: 2})}

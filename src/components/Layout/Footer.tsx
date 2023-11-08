@@ -78,12 +78,12 @@ export const Footer = (props: BoxProps) => {
         <Flex
           direction={"column"}
           alignItems={"center"}
+          justifyContent={"center"}
           w={{base: "100%", md: "80%"}}
         >
           <Flex
             direction={"column"}
             alignItems={"center"}
-            pb={10}
           >
             <Text
               textAlign={"center"}

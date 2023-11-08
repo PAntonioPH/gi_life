@@ -59,6 +59,8 @@ const users = async (req: NextApiRequest, res: NextApiResponse) => {
         const keys_filter = ["username", "name", "last_name", "email", "id_rol", "password", "code", "verified", "token", "phone"]
         response = await conn.query(query_insert(await filtrar_llaves(body, keys_filter), "users"))
 
+        await conn.query(query_insert(await filtrar_llaves({id_user: response.rows[0].id,}, ["id_user"]), "user_address"))
+
         return res.status(200).json(message("Usuario registrado", response.rows[0]))
       } catch (e) {
         console.log(e)

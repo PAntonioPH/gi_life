@@ -4,7 +4,7 @@ import {conn} from "@/utils/database";
 import moment from "moment";
 
 const purchase = async (req: NextApiRequest, res: NextApiResponse) => {
-  const {method, query, body} = req
+  const {method, query} = req
   const {id} = query
 
   let response: any

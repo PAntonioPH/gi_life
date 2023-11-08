@@ -1,4 +1,4 @@
-import {Box, Flex, Image, useBreakpointValue, VStack} from "@chakra-ui/react";
+import {Box, Flex, Image, Modal, ModalBody, ModalContent, ModalOverlay, useBreakpointValue, useDisclosure, VStack} from "@chakra-ui/react";
 import {useState} from "react";
 import {SliderImages} from "@/components/Product/SliderImages";
 
@@ -7,8 +7,15 @@ interface Props {
 }
 
 const ViewerImages = ({images}: Props) => {
+  const {isOpen, onOpen, onClose} = useDisclosure()
   const isDesktop = useBreakpointValue({base: false, lg: true})
   const [currentImage, setCurrentImage] = useState(0)
+  const [currentImageModal, setCurrentImageModal] = useState("")
+
+  const handleClickImage = (image: string) => {
+    setCurrentImageModal(image)
+    onOpen()
+  }
 
   return (<Flex
     w={{base: "100%", lg: "60%"}}
@@ -56,13 +63,41 @@ const ViewerImages = ({images}: Props) => {
               objectFit={"cover"}
               borderRadius={"lg"}
               border={"1px solid #e2e8f0"}
+              onClick={() => handleClickImage(images[currentImage])}
+              cursor={"pointer"}
             />
           </Box>
         </>)
         : (<>
-          <SliderImages images={images}/>
+          <SliderImages
+            images={images}
+            handleClickImage={handleClickImage}
+          />
         </>)
     }
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      size={"3xl"}
+      allowPinchZoom
+      isCentered
+    >
+      <ModalOverlay/>
+      <ModalContent
+        bg={"transparent"}
+        boxShadow={"none"}
+      >
+        <ModalBody>
+          <Image
+            src={currentImageModal}
+            alt={"image"}
+            objectFit={"cover"}
+            borderRadius={"lg"}
+            border={"1px solid #e2e8f0"}
+          />
+        </ModalBody>
+      </ModalContent>
+    </Modal>
   </Flex>)
 }
 

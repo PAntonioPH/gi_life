@@ -6,11 +6,12 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 interface Props {
   images: string[]
+  handleClickImage: (image: string) => void
 }
 
 const MotionBox = motion(Box);
 
-export const SliderImages = ({images}: Props) => {
+export const SliderImages = ({images, handleClickImage}: Props) => {
   const [currentImage, setCurrentImage] = useState(0);
 
   const handleNextImage = () => (currentImage >= images.length - 1) ? setCurrentImage(0) : setCurrentImage((prev) => prev + 1);
@@ -65,6 +66,7 @@ export const SliderImages = ({images}: Props) => {
               objectFit={"cover"}
               h={"250px"}
               borderRadius={"lg"}
+              onClick={() => handleClickImage(images[currentImage])}
             />
           </MotionBox>
         </AnimatePresence>

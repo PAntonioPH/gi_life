@@ -1,3 +1,5 @@
+import {Product} from "@/interfaces/Product";
+
 export interface Purchase {
   id: number,
   id_user: number,
@@ -7,4 +9,6 @@ export interface Purchase {
   total: number
   username: string
   date_time_update?: string
+  purchase: Product[]
+  id_purchase_stripe: string
 }

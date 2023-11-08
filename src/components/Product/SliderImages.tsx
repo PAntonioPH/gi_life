@@ -1,6 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {AnimatePresence, motion} from 'framer-motion';
 import {Box, Text, Image, Flex} from "@chakra-ui/react";
+import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 interface Props {
   images: string[]
@@ -11,14 +13,9 @@ const MotionBox = motion(Box);
 export const SliderImages = ({images}: Props) => {
   const [currentImage, setCurrentImage] = useState(0);
 
-  useEffect(() => {
-    const handleNextImage = () => setCurrentImage((prevImage) => (prevImage + 1) % images.length);
-    const interval = setInterval(handleNextImage, 5000);
+  const handleNextImage = () => (currentImage >= images.length - 1) ? setCurrentImage(0) : setCurrentImage((prev) => prev + 1);
 
-    return () => {
-      clearInterval(interval);
-    };
-  }, [images.length]);
+  const handlePrevImage = () => (currentImage <= 0) ? setCurrentImage(images.length - 1) : setCurrentImage((prev) => prev - 1);
 
   return (<>
     <Flex
@@ -42,22 +39,45 @@ export const SliderImages = ({images}: Props) => {
         </Text>)
       }
 
-      <AnimatePresence>
-        <MotionBox
-          initial={{opacity: 0}}
-          animate={{opacity: 1}}
-          exit={{opacity: 0}}
-          transition={{duration: 0.5}}
-        >
-          <Image
-            src={images[currentImage] || "/assets/images/placeholderImg.jpg"}
-            alt={"image"}
-            objectFit={"cover"}
-            h={"250px"}
-            borderRadius={"lg"}
-          />
-        </MotionBox>
-      </AnimatePresence>
+      <Flex
+        alignItems={"center"}
+        justifyContent={"center"}
+      >
+        <FontAwesomeIcon
+          icon={faChevronLeft}
+          size="lg"
+          color="black"
+          onClick={handlePrevImage}
+          cursor="pointer"
+          style={{marginRight: "10px"}}
+        />
+
+        <AnimatePresence>
+          <MotionBox
+            initial={{opacity: 0}}
+            animate={{opacity: 1}}
+            exit={{opacity: 0}}
+            transition={{duration: 0.5}}
+          >
+            <Image
+              src={images[currentImage] || "/assets/images/placeholderImg.jpg"}
+              alt={"image"}
+              objectFit={"cover"}
+              h={"250px"}
+              borderRadius={"lg"}
+            />
+          </MotionBox>
+        </AnimatePresence>
+
+        <FontAwesomeIcon
+          icon={faChevronRight}
+          size="lg"
+          color="black"
+          onClick={handleNextImage}
+          cursor="pointer"
+          style={{marginLeft: "10px"}}
+        />
+      </Flex>
     </Flex>
   </>);
 }

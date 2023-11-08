@@ -1,26 +1,9 @@
-import {Box, BoxProps, ButtonGroup, Center, Flex, Heading, IconButton, SimpleGrid, Text} from '@chakra-ui/react'
+import {Box, BoxProps, ButtonGroup, Flex, Heading, IconButton, Text} from '@chakra-ui/react'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
-import {faFacebook, faInstagram, faTwitter} from "@fortawesome/free-brands-svg-icons"
+import {faFacebook, faInstagram} from "@fortawesome/free-brands-svg-icons"
 import {Logo} from "@/components/Logo";
-import {useEffect, useState} from "react";
-import {Category} from "@/interfaces/Category";
-import axios from "axios";
-import {useRouter} from "next/router";
 
 export const Footer = (props: BoxProps) => {
-  const router = useRouter()
-  const handleClick = async (url: string) => await router.push(url === "/" ? "/" : `/category/${url}`)
-
-  const [sections, setSections] = useState<Category[]>([])
-  useEffect(() => {
-    axios.get('/api/v1/categories', {
-      headers: {Authorization: `${process.env.NEXT_PUBLIC_TOKEN_WEB}`}
-    })
-      .then(res => {
-        setSections(res.data.response)
-      })
-  }, [])
-
   const redes = [
     {
       name: "Facebook",
@@ -35,7 +18,7 @@ export const Footer = (props: BoxProps) => {
   ]
 
   return (
-    <Box as="footer" role="contentinfo" px={{base: '8'}} mt={10} bgGradient="linear(to-r, #a8b9e8, #e9b0d1, #f7b6c1)" {...props}>
+    <Box as="footer" role="contentinfo" px={{base: '8'}} bgGradient="linear(to-r, #a8b9e8, #e9b0d1, #f7b6c1)" {...props}>
       <Flex
         py={{base: '12', md: '10'}}
         direction={{base: 'column', md: 'row'}}
@@ -47,9 +30,7 @@ export const Footer = (props: BoxProps) => {
           w={{base: "100%", md: "20%", ls: "100%"}}
           mr={10}
         >
-          <Center>
-            <Logo w={"300"}/>
-          </Center>
+          <Logo w={"300"}/>
           <Heading
             pb={5}
             size={"sm"}

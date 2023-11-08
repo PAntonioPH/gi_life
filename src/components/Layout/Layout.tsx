@@ -47,6 +47,7 @@ export const Layout = (props: Props) => {
             </Placeholder>
           </Flex>
         </Flex>
+
         <Footer/>
       </Flex>
     </>

@@ -27,10 +27,10 @@ const Cart = () => {
           direction={"column"}
           minH={"80vh"}
           justifyContent={"space-between"}
+          mb={5}
         >
           <Box>
             <CartList/>
-
             {
               cart.length === 0
               && (<Flex

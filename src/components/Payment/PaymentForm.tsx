@@ -1,4 +1,4 @@
-import {Box} from "@chakra-ui/react";
+import {Flex} from "@chakra-ui/react";
 import {loadStripe} from "@stripe/stripe-js";
 import {Elements} from "@stripe/react-stripe-js";
 import {CheckoutForm} from "@/components/Payment/CheckoutForm";
@@ -28,7 +28,11 @@ export const PaymentForm = () => {
       .finally(() => setLoading(false));
   }, [cart, total, user.username, user.email]);
 
-  return (<Box>
+  return (<Flex
+    justifyContent={"center"}
+    alignItems={"center"}
+    mt={10}
+  >
     {
       loading
         ? (<LoadingPage/>)
@@ -37,5 +41,5 @@ export const PaymentForm = () => {
             <CheckoutForm/>
           </Elements>))
     }
-  </Box>)
+  </Flex>)
 }

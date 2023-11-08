@@ -27,6 +27,11 @@ export const Footer = (props: BoxProps) => {
       icon: <FontAwesomeIcon fontSize="2rem" icon={faFacebook}/>,
       url: "https://www.facebook.com/GiLife"
     },
+    {
+      name: "Instagram",
+      icon: <FontAwesomeIcon fontSize="2rem" icon={faInstagram}/>,
+      url: "https://www.instagram.com/gilife.mexico/"
+    },
   ]
 
   return (
@@ -49,9 +54,9 @@ export const Footer = (props: BoxProps) => {
             pb={5}
             size={"sm"}
             mt={'8'}
-            color={"#6a1834"}
+            color={"#0a6770"}
           >
-            ¡Síguenos en Facebook! </Heading>
+            ¡Síguenos en nuestras Redes Sociales! </Heading>
           <ButtonGroup variant="ghost" spacing={10}>
             {
               redes.map(({name, url, icon}) => (
@@ -75,36 +80,6 @@ export const Footer = (props: BoxProps) => {
           alignItems={"center"}
           w={{base: "100%", md: "80%"}}
         >
-          <Heading
-            color={"#6a1834"}
-            fontFamily={"sans-serif"}
-            pb={5}
-            pt={5}
-          >
-            Secciones
-          </Heading>
-
-          <SimpleGrid
-            columns={{base: 3, md: 8}}
-            spacing={3}
-          >
-            {sections.map((section, index) => (
-              <Text
-                key={index}
-                onClick={() => handleClick(section.url)}
-                cursor={"pointer"}
-                _hover={{
-                  textDecoration: "underline"
-                }}
-                w={"100%"}
-                h={"100%"}
-              >
-                {
-                  section.name
-                }
-              </Text>
-            ))}
-          </SimpleGrid>
           <Flex
             direction={"column"}
             alignItems={"center"}
@@ -113,7 +88,8 @@ export const Footer = (props: BoxProps) => {
             <Text
               textAlign={"center"}
               pt={10}
-              fontSize={"xs"}
+              fontSize={"md"}
+
             >
               Derechos Reservados © 2023 GI Life. Queda estrictamente
               prohibida la reproducción, distribución, o cualquier uso no autorizado del contenido de este material, ya
@@ -123,7 +99,7 @@ export const Footer = (props: BoxProps) => {
               están
               reservados.
             </Text>
-            <Text fontSize="xs" color="#6a1834">
+            <Text fontSize="sm" color="#0a6770">
               &copy; {new Date().getFullYear()} GI Life. All rights reserved.
             </Text>
           </Flex>

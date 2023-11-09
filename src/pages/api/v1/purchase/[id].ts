@@ -12,7 +12,7 @@ const purchase = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (method) {
     case "GET":
       try {
-        const {time_zone} = query
+        const {time_zone, completion} = query
         if (!time_zone) return res.status(500).json(message("Error, no se recibió la zona horaria"))
 
         response = await conn.query(`SELECT p.id,
@@ -27,7 +27,7 @@ const purchase = async (req: NextApiRequest, res: NextApiResponse) => {
                                      FROM purchase p
                                               INNER JOIN users u on p.id_user = u.id
                                               INNER JOIN purchase_status ps on p.id_purchase_status = ps.id
-                                     WHERE p.id = '${id}';`)
+                                     WHERE ${completion !== "true" ? `p.id = '${id}'` : `p.id_purchase_stripe = '${id}'`};`)
 
         if (response.rows.length === 0) return res.status(404).json(message("Compra no encontrada"))
 

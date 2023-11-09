@@ -16,12 +16,10 @@ interface Product {
 
 interface CartContextProps {
   cart: Product[];
-  lastCart: Product[];
   addProduct: (product: Product) => void;
   removeProduct: (product: Product) => void;
   clearCart: () => void;
   total: string
-  lastTotal: string
   setCount: (product: Product, count: number) => void;
   deleteProduct: (product: Product) => void;
 }
@@ -42,15 +40,10 @@ interface CartProviderProps {
 
 export const CartProvider: React.FC<CartProviderProps> = ({children}) => {
   const [cart, setCart] = useState<Product[]>([]);
-  const [lastCart, setLastCart] = useState<Product[]>([]);
-  const [lastTotal, setLastTotal] = useState("")
 
   useEffect(() => {
     const cartCookie = Cookies.get('cart');
     if (cartCookie) setCart(JSON.parse(cartCookie));
-
-    const lastCartCookie = Cookies.get('lastCart');
-    if (lastCartCookie) setLastCart(JSON.parse(lastCartCookie));
   }, [])
 
   const addProduct = (product: Product) => {
@@ -117,10 +110,6 @@ export const CartProvider: React.FC<CartProviderProps> = ({children}) => {
   }
 
   const clearCart = () => {
-    Cookies.set('lastCart', JSON.stringify(cart));
-    setLastCart(cart)
-    setLastTotal(lastCart.reduce((a, b) => a + (b.price * b.count) * (1 - b.discount / 100), 0).toLocaleString("es-MX", {minimumFractionDigits: 2, maximumFractionDigits: 2}))
-
     Cookies.remove('cart');
     setCart([]);
   };
@@ -128,7 +117,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({children}) => {
   const total = cart.reduce((a, b) => a + (b.price * b.count) * (1 - b.discount / 100), 0).toLocaleString("es-MX", {minimumFractionDigits: 2, maximumFractionDigits: 2});
 
   return (
-    <CartContext.Provider value={{cart, lastCart, addProduct, removeProduct, clearCart, total, lastTotal, setCount, deleteProduct}}>
+    <CartContext.Provider value={{cart, addProduct, removeProduct, clearCart, total, setCount, deleteProduct}}>
       {children}
     </CartContext.Provider>
   );

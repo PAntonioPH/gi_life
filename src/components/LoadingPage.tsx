@@ -1,12 +1,19 @@
 import {Skeleton, Stack} from "@chakra-ui/react";
 
-export const LoadingPage = () => {
+interface Props {
+  quantity?: number
+}
+
+export const LoadingPage = ({quantity}: Props) => {
   return (<Stack>
-    <Skeleton height='100px'/>
-    <Skeleton height='100px'/>
-    <Skeleton height='100px'/>
-    <Skeleton height='100px'/>
-    <Skeleton height='100px'/>
-    <Skeleton height='100px'/>
+    {
+      [...Array(quantity && quantity > 0 ? quantity : 6)].map((_, index) => (
+        <Skeleton
+          key={index}
+          height={"100px"}
+          my={2}
+        />
+      ))
+    }
   </Stack>)
 }

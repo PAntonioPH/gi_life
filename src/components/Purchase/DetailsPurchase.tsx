@@ -104,7 +104,13 @@ export const DetailsPurchase = ({isOpen, onClose, shopping, id}: Props) => {
                     {
                       data.purchase.map((row) => (
                         <Tr key={row.id}>
-                          <Td>{row.name}</Td>
+                          <Td>
+                            {
+                              row.name.length > 20
+                                ? `${row.name.slice(0, 20)}...`
+                                : row.name
+                            }
+                          </Td>
                           <Td>
                             <Image
                               src={row.images[0] || '/assets/images/placeholderImg.jpg'}
@@ -113,7 +119,7 @@ export const DetailsPurchase = ({isOpen, onClose, shopping, id}: Props) => {
                             />
                           </Td>
                           <Td>{row.count}</Td>
-                          <Td>$ {row.price.toLocaleString("es-MX", {minimumFractionDigits: 2, maximumFractionDigits: 2})}</Td>
+                          <Td>$ {(row.price * row.count * (1 - row.discount / 100)).toLocaleString("es-MX", {minimumFractionDigits: 2, maximumFractionDigits: 2})}</Td>
                         </Tr>
                       ))
                     }

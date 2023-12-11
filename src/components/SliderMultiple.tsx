@@ -105,7 +105,7 @@ export const SliderMultiple = ({products, url}: Props) => {
       setCurrent(prev => {
         return prev >= products.length - (isDesktop ? 3 : 1) ? 0 : prev + 1;
       });
-    }, 1000);
+    }, 5000);
 
     return () => clearInterval(interval);
   }, [products.length, isDesktop]);
@@ -115,7 +115,6 @@ export const SliderMultiple = ({products, url}: Props) => {
   const handleNextImage = () => (current >= products.length - (isDesktop ? 3 : 1)) ? setCurrent(0) : setCurrent((prev) => prev + 1);
 
   const handleClick = async (id: number, category: string) => await router.push(`/category/${category}/item/${id}`)
-
 
   return (
     <HStack

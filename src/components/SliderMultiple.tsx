@@ -1,6 +1,6 @@
-import {Box, Text, HStack, IconButton, Image, Badge, VStack, Heading, useBreakpointValue} from '@chakra-ui/react';
-import {motion, AnimatePresence} from 'framer-motion';
-import {useState, useEffect} from 'react';
+import {Badge, Box, Heading, HStack, IconButton, Image, Text, useBreakpointValue, VStack} from '@chakra-ui/react';
+import {AnimatePresence, motion} from 'framer-motion';
+import {useEffect, useState} from 'react';
 import {Product} from "@/interfaces/Product";
 import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -102,11 +102,13 @@ export const SliderMultiple = ({products, url}: Props) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrent((prev) => ((prev >= products.length - 1) ? 0 : prev + 1));
-    }, 3000);
+      setCurrent(prev => {
+        return prev >= products.length - (isDesktop ? 3 : 1) ? 0 : prev + 1;
+      });
+    }, 1000);
 
     return () => clearInterval(interval);
-  }, [steps, products.length]);
+  }, [products.length, isDesktop]);
 
   const handlePrevImage = () => (current <= 0) ? setCurrent(products.length - 1) : setCurrent((prev) => prev - 1);
 

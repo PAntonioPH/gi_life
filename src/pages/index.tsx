@@ -1,5 +1,4 @@
 import {Layout} from "@/components/Layout/Layout";
-import {BannerHome} from "@/components/Layout/BannerHome";
 import {Product} from "@/interfaces/Product";
 import {useEffect, useState} from "react";
 import axios from "axios";
@@ -8,7 +7,6 @@ import {LoadingPage} from "@/components/LoadingPage";
 import {Box, Flex, Heading} from "@chakra-ui/react";
 import {SliderMultiple} from "@/components/SliderMultiple";
 import {useRouter} from "next/router";
-import {motion} from "framer-motion";
 
 interface ResponsePost {
   id: number,
@@ -39,7 +37,7 @@ const Index = () => {
         loading
           ? (<LoadingPage/>)
           : (<>
-            <BannerHome/>
+            {/*<BannerHome/>*/}
             {
               data.map(({name, products, url, id}) => (
                 products.length > 0
